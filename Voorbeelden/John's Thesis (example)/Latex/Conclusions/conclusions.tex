@@ -1,0 +1,61 @@
+\pagebreak
+\chapter{Conclusions and recommendations}
+\label{secConclusions}
+
+
+This thesis describes the research on improving the creation of semantic links between documents. One of the methods of creating semantic links between documents is to calculate embeddings of documents and use cosine similarity as a measure of the similarity. By improving the embedding, the quality of the links increases. The main research aim is to determine if and how the quality of the semantic links improves when the document is split into sections. \\
+
+The first part of this chapter contains answers to the subquestions and the main research question. The second part describes the limitations of the conducted research. Finally, suggestions for further research are given in the last part of the chapter. 
+
+\section{Conclusions}
+
+\subsection{RQ1}
+The first subquestion to be answered is "Which are known representative corpora for training and validation?". Two corpora, WiRe and Wikisim, were used, although the number of document pairs in these corpora was low. GWikiMatch promised to be a suitable corpus with many document pairs. Nevertheless, the quality of the relations needed to be higher for this research. An English and Dutch Wikipedia extract was created for WiRe and Wikisim.
+
+\subsection{RQ2}
+"What metrics can be used to assess the quality of the semantic links?" can be answered simply using the F1-score. To calculate this F1-score, formulas \ref{eqF1a}, \ref{eqF1d}, and \ref{eqF1e} are used. The F1 score measures the correctly matched documents and the incorrectly matched documents. The latter is essential because falsely matched documents harm the trust of the end users using the document relations. Second, a value was found that relates to the importance of the document relations. This value is the output score of the neural network. This implies that ranking documents based on the strongest relation can be done using this output score, and an extra ranking algorithm is unnecessary.
+
+\subsection{RQ3}
+The third subquestion is "What method can be used to create a dataset on a specific topic?". To answer this question, software was developed to create a corpus based on Wikipedia articles. Documents about a subject were selected using a publicly available ontology (Wikidata). The links between the documents were created using meta-information available in Wikipedia.\\
+Much effort was put into creating this corpus, but unfortunately, the software could not extract enough information from the metadata. That meant the quality of semantic links in the resulting corpus was not good enough to be used as input for this research. 
+Parts of the software developed to create the custom corpus were used to extract articles needed for WiRe and Wikisim from Wikipedia and the translated articles. \\
+
+The SADDLE algorithm was devised to create semantic links between documents based on sections. The algorithm was based on the existing LHA algorithm, so it could be optimized to perform well without requiring too many input documents. SADDLE contains a neural network that was trained on the corpora mentioned above. 
+
+\subsection{RQ4 \& RQ5}
+Two data sets were used to answer the subquestions "What method gives the best result for computing the embedding of the sections and then creating document relations?" and "To what extent can this method be extended to a different language than English (preferably Dutch)?". The Wikisim and WiRe datasets mentioned in the previous paragraph were split into two (using K-Fold Cross Validation); one part was used as a training set, and the other was used as a validation set. \\
+
+The results of the SADDLE algorithm were compared to a baseline measurement obtained by creating semantic links based on the cosine similarity of the embeddings of the whole document. During development iterations of SADDLE, various embedding methods and neural network architectures were used. The results provided answers to subquestions 4a, "What method gives the best result for computing the embedding of the sections?" and 4b, "To what extent can this method be extended to a different language than English (preferably Dutch)?"\\
+
+From the tested embedding methods, Word2Vec, Sent2Vec, USE, and SBERT, SBERT gives the best results. The better results apply to the baseline and the neural network output. Because SBERT was developed later than the other embedding methods, it was to be expected that the results would be better because it would only be popular when it performed better than previous implementations. The conclusion is that the plain neural network  (iteration two) performs better than the neural network that uses statistical information (iteration three). The network from iteration two has more parameters than the statistical network of iteration three. Therefore, the corpus needs more validated document pairs than it would when using the statistical network. Using the pre-trained network on WiRe on Wikisim, the need for more examples is no problem, but when a new corpus has to be created, it takes much more effort to create a corpus.\\
+Using SBERT together with the plain neural improves on English and Dutch texts. However, SADDLE performs better in English than in Dutch. One of the explanations for this is that the SBERT implementation was trained on much more English than Dutch documents.\\
+
+\subsection{Main research question}
+
+Answering the subquestions answers the main research question: "How can hierarchical decomposition (into sections) and encoding improve on finding automated relations between documents in document sets compared to encoding all of the text of a document, where the document set contains less than 10K documents?". Unfortunately, creating section embeddings using SBERT combined with a shallow neural network does not improve finding automated relations. The sets this was tested on contained less than 10K documents. A reason for this could be that the neural network is overfitting. Having datasets with more data can mitigate this problem.\\
+
+Another reason that decomposition into sections does not create better relations than using an embedding of the total document could be that the embeddings of the separate sections lose the context in which the sections appear. This loss of information can hurt the quality of the created document relations. 
+\section{Limitations}
+This section contains limitations of the research conducted in this thesis. These limitations have an impact on the conclusions described in the previous section.\\
+
+As mentioned earlier in this thesis, the number of document pairs in the used corpora was low. The neural network with the best results contains a hidden layer of 5 fully connected nodes and 1 output node. When the number of sections is 9 (vector size is 18), this results in a neural network with $18 * 5 + 5 + 5  = 100$ parameters. When the rule of ten (a rule of thumb regarding machine learning) is applied, the number of examples must be at least 1,000. The number of examples in WiRe and Wikisim is 362 and 217, respectively, for English and 265 and 173 for Dutch examples. The quality of the network suffers from these low numbers.\\
+A way to mitigate this problem is to use a corpus with more examples. Another alternative is to use a network with fewer parameters than 5, but it is reasonable to assume that the quality of the neural network worsens.\\
+
+Both corpora, WiRe and Wikisim, are based on random Wikipedia articles. These articles impose two limitations to the research. Firstly, the Wikipedia articles are written in a format from which the document's structure can easily be derived. The format makes it easy to split the article into logical sections, which can be much more difficult when other document formats are used for input. Secondly, the selected Wikipedia articles for the corpora are not limited to a subject as in knowledge bases. By definition, articles related to one specific subject are more similar than random articles, which means the differences in articles are more subtle and may hamper SADDLE's finding of correct document relations.\\
+
+The conclusions in the previous section state that the optimal configuration of the hyperparameters depends on the corpus being used. One reason for this can be that the number of examples in the corpora is too low. Another explanation can be that the configuration of the hyperparameters is independent of the number of examples in the corpus, which means that for each document set SADDLE is used, an optimal hyperparameter configuration must be found. This means a set of examples must be created manually. The manual creation of examples can be facilitated using a yet-to-created interface. This interface shows the related documents found with a SADDLE configuration based on Wikisim or WiRe, and the user is asked whether it is a valid link. This interface would simplify the work, creating a new set of examples and implying more computational resources.
+
+
+\section{Further research}
+
+While researching for SADDLE, the two corpora used, WiRe and Wikisim, were the only ones found to be appropriate. Further research can find more extensive corpora or find a method to create a new corpus. When software can be created that can use custom documents or selected Wikipedia articles for input, this could help improve SADDLE for a knowledge domain.\\
+
+The neural network used in phase 3 of SADDLE is shallow, and little attention was paid to the architecture of the neural network due to time restrictions. Further research can look into the architecture of the neural network. a more complex neural network, for example, would likely improve the quality of the document relations. However, this would increase the need for corpora with more examples.\\
+
+The primary function of phases one and two of SADDLE is to improve the performance of the software. The phases filter out the document pairs that are unlikely to be valid and reduce the need to generate section alignments for these documents. However, because the number of document pairs is relatively low (less than 10K), SADDLE can be simplified by removing this filtering of documents.\\
+
+A significant amount of effort was dedicated to the software to create a corpus about a specific topic based on Wikipedia articles. One part of this software selects articles based on an ontology. The second part determines whether a pair of articles is similar by using information contained in the hyperlinks. Although this last part proved unsuccessful, further research can be conducted using other (meta) data from the Wikipedia articles.\\
+
+A user interface was devised to validate the SADDLE software visually. This interface can help users find relations between sections of two related documents in knowledgebases. Adding a graphical design and usability research can be conducted to improve this user interface.\\
+
+This research states that document relations are a helpful addition to the knowledge base. However, at the moment of speaking, to the best of our knowledge, no studies have been conducted in this direction. Research into whether users demand this functionality or whether the links are used in practice would be welcome.

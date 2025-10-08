@@ -1,0 +1,106 @@
+\chapter{Creating topic datasets}
+\label{chapTopicDatasets}
+
+    Training the SADDLE algorithm for a particular topic becomes feasible by generating datasets specifically for that topic. This is translated into RQ3: "What method can be used to create a dataset on a specific topic?" This expands the CRISP phase 2 (Understanding the data) described in chapter \ref{secRCI_II}.
+
+
+\section{Using Wikidata}
+\label{sectWikidata}
+
+\citep{jiang2019semantic} and \citep{512Tokens} generate datasets based on Wikipedia articles. This approach has several advantages compared to using fixed datasets. Firstly, it allows composing a set of Wikipedia articles related to a specific topic to simulate a knowledge base. Secondly, datasets can be created in multiple languages when choosing a multilingual ontology because Wikipedia is multilingual. \\
+
+The datasets used in the research have to match the content of a knowledge base as closely as possible. This means that the dataset must at least have two essential properties. Firstly, the dataset must contain content about one or multiple closely related topics. The topic articles can be selected using a knowledge graph, for example, DBPedia or Wikidata (section \ref{sectWikidataDBPedia}). After careful consideration, it was determined that Wikidata has a slight advantage over DBPedia and, therefore, was selected as the preferred knowledge graph. For selecting articles concerning a defined topic the \texttt{subclass-of}-property was used to select the articles. Secondly, the dataset must contain a substantial set of documents, but at most 10K.  \\
+
+The standard query language for RDF-stores is SPARQL\footnote{https://www.w3.org/TR/sparql11-query/} for which Wikidata provides an endpoint\footnote{https://query.wikidata.org/sparql}. The endpoint has two main limitations. Firstly, one client (user agent + IP) is allowed 60 seconds of processing time. Secondly, one client is permitted 30 queries per minute. A recursive query was created that selects all Wikipedia articles concerning a topic to limit the number of queries to the endpoint. The framework of the query is contained in Appendix A.\\
+
+The articles are retrieved from a Wikimedia dump to avoid using the Wikipedia API because the number of queries via the API is limited. The dumps used in this thesis were created in August 2022.
+\\
+
+ Semantic links between articles are constructed based on two criteria. The criterium of document similarity, as described by \citet{jiang2019semantic}, is based on the Jaccard similarity \citep{Jaccard1912} between the outgoing links of two Wikipedia articles. The assumption is made that similar documents have similar sets of outgoing links. Document pairs with a Jaccard index greater than 0.5 are considered positive examples. 
+   For creating links between sections of articles, only the Jaccard distance is used for creating semantic links because Wikipedia does not contain direct links between sections of articles.
+
+
+
+\section{Distance using hyperlinks}
+\label{secHyperlinkDistance}
+Another approach is to generate datasets based on Wikipedia articles, as was done by \citet{jiang2019semantic} and \citet{512Tokens}. This approach has several advantages compared to using the other datasets. Firstly, it allows composing a set of Wikipedia articles related to a specific topic to simulate a knowledge base. Secondly, datasets can be created in multiple languages when choosing a multilingual ontology because Wikipedia is multilingual. 
+
+
+A set with validated links must be available to generate an F1 score, as described in \ref{F1Score} and \ref{ranking}. This set is considered the ground truth. The possible links in a set with $N$ documents will be $N x N$. If $N$ is significantly large, as is the case with the number of articles in Wikipedia, it is practically impossible to determine the correct set of links by human examination. 
+
+An automatic algorithm could be a solution, but must be very accurate to keep the number of retrieved relevant links low. A too-high number of relevant links will result in a low F1 score because then the recall will become small (see formulas \ref{F1Score} and \ref{ranking}). It remains to be seen whether a sufficiently accurate algorithm can be developed because limiting the number of possible links depends on the algorithm’s perspective.
+ The problems with the F1 score are described in section \ref{secIteration1}. 
+ \\
+
+Instead of a set containing validated links, assigning a score to a link representing the link's validity is helpful. Using this score, the quality of the generated hyperlinks can be assessed. The document's metadata is used as input for calculating the score because this information is not available to the algorithm used in this thesis; it only uses plain text.\\
+All datasets are composed of articles from Wikipedia. Wikipedia articles contain metadata in hyperlinks that can be used to determine the relationship between two articles. An intuitive way to determine the extent to which the articles are related is to count the minimal number of hyperlinks that must be traversed from one article to another: the distance. \\
+Wikipedia articles form a directed graph if each article is considered a node and each connection between articles is an edge connecting two nodes. This graph can calculate the distance mentioned above by calculating the shortest path between the nodes representing the articles of which the score has to be determined. An example of the article graph of the Dutch Wikipedia is given in figure \ref{imgArticleGraph}.\\
+
+\begin{figure}[h]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[width=155mm]{images/ArticleGraphWikipedia.drawio.png}
+\caption{Part of the directed article graph of the Dutch Wikipedia. It depicts the path from "Open Universiteit" to "Microsoft."}
+\label{imgArticleGraph}
+\end{figure}
+
+
+To get good scores, the article graph and the document set must preferably be based on the same version of Wikipedia. For this thesis, a Python script was created that reads all hyperlinks from Wikipedia to generate the article graph. The script uses SQL files that are generated with each Wikipedia dump. First, for the names and IDs of the articles, it uses `...-page.sql'. Second,  it uses the file '...pagelinks.sql', which contains all hyperlinks within these articles. The files contain a dump of all the corresponding tables in a MySql database. It takes a long time to read all records in a database\footnote{https://stackoverflow.com/questions/43954631/issues-with-wikipedia-dump-table-pagelinks}. Therefore, the script interprets the statements in the dump file directly without first reading it into a database.\\
+
+Graph databases can efficiently store graphs, as \citet{neo4j} state: "Graph database technology is an effective tool for modeling data when a focus on the relationship between entities is a driving force in the design of a data model." The paper uses NEO4J\footnote{https://neo4j.com} as an example graph database. This thesis explored using NEO4J to store the English and Dutch Wikipedia article graphs. Unfortunately, it was not clear from their website what the license terms were. Because the downloaded version was limited to one database only and bulk import for large graphs could only be done once, NEO4J was not used. \\
+The Functionality of Memgraph\footnote{https://memgraph.com} matches the Functionality of NEO4J and has a less restricted license model. The functionality to store the data in Memgraph was added to the Python Script. The problem with Memgraph was that it consumed much memory and took more than a day to load the data in the database, which meant that the turnaround time for changes to the script was long.\\
+
+An alternative to using graph databases is using a Python script that stores the graph in memory. Unfortunately, the hardware used for this thesis has limited resources: a macOS machine with 16 GB of internal memory. Because the size of the graph is significant (more than 16.000.000 nodes for the English version of Wikipedia), the module must be memory efficient and fast. First, Igraph\footnote{https://igraph.org} was considered because it was the easiest to use for development, but while loading the English version of Wikipedia, the machine ran out of memory.
+
+NetworKit is a Python module in which "performance-aware algorithms are written in C++."\footnote{https://networkit.github.io/} Nodes in NetworKit are represented by integers, which means that article titles have to be translated to an integer and visa-versa. This translation is done by storing all Wikipedia article titles in an array and using the index in this array to represent the node. This method filters out all hyperlinks to articles that do not yet exist in Wikipedia. The translation and filtering were not enough to store the English version of Wikipedia in available memory. \\
+
+Debugging the script revealed that much memory was consumed by articles that contained thousands of hyperlinks. An example of such an article is "DNA": it has over 3,000 hyperlinks. Articles with many hyperlinks make using the distance between two articles less valuable as a score for the validity of generated links. The shortest path between "Hippopotamus" (the animal) and "Frederick Griffith" (a British bacteriologist) is: $$ \text{Hippopotamus} \longrightarrow \text{DNA} \longrightarrow \text{Frederick\ Griffith}$$
+However, if the DNA article is left out of the graph, there is no shortest path between "Hippopotamus" and "Frederick Griffith," which better matches reality. \\
+When articles with more than 2.000 links are left out of the graph, the English version of Wikipedia fits into available memory (hence the Dutch version, too). Saving the graph and intermediate data structures in a cache helped to increase performance dramatically.\\
+ 
+ Intuitively, the shortest path length in the article graph is a good score to determine whether a generated document link is valid. However, before using the score, the quality of the score has to be proven. The quality of the score can be assessed by calculating the score of validated links. GWikimatch, as described in section \ref{sectWikidata}, is a dataset containing links checked for validity by humans. In this thesis, a script was developed that calculates the shortest path length for each article combination in the set using the constructed article graph. \\
+
+This implies that if the length of the shortest path is an indicator of the link's validity, a low value would indicate a valid link and a high value would indicate an invalid link. In other words, the fewer times the user uses a hyperlink to travel from one article to another, the better the articles are related. A bar diagram depicts the shortest path that separates valid from invalid links to determine the correct value for the shortest path length and the link's validity. Figure \ref{imgDistance2000} visualizes the relation between the shortest path length and the link's validity. From the figure, the conclusion can be drawn that, unfortunately, there is almost no relation between the length of the shortest path link's validity.\\
+
+\begin{figure}[h]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[scale=0.8]{images/distance_2000.pdf}
+\caption{The shortest paths between Wikipedia articles compared to the validity according to GWikimatch. Articles with more than 2000 hyperlinks have been removed. }
+\label{imgDistance2000}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[scale=0.8]{images/distance_400.pdf}
+\caption{The shortest paths between Wikipedia articles compared to the validity according to GWikimatch. Articles with more than 400 hyperlinks have been removed. }
+\label{imgDistance400}
+\end{figure}
+
+A possible explanation could be that, as previously stated, articles containing many hyperlinks wrongfully minimize the shortest path length. To rule out this possibility, the script was modified to remove articles with more than $n$ hyperlinks from the graph. Unfortunately, the value of $n$ had no significant impact on the relation between the length of the shortest path and the relation between the articles. Figure \ref{imgDistance400} shows the relation for the graph in which articles with more than 400 hyperlinks were removed. Appendix E contains the figures for other values of $n$ that were examined. 
+
+\section{Millne\&Witten}
+\label{secMilneWitten}
+From the previous paragraph, it becomes clear that the shortest path length in the article graph is not a valid indicator for the relation between articles. Therefore, part of this thesis sought an existing score in literature representing the relatedness of two Wikipedia articles based on the hyperlink structure. Therefore, an article subgraph was constructed using the Milne\&Witten formula (formula \ref{formulaMilneWitten}).
+
+The formula uses hyperlinks that point to an article as input. The script that creates the article graph, as described in section \ref{secHyperlinkDistance}, was expanded. Next to building an article graph, it creates a dictionary that uses the article index as the key and a list of article indexes that contain a hyperlink to this article as value. The Milne\&Witten score can be calculated efficiently using this data structure.\\
+
+Analogous to the shortest path using the article graph, the Milne\&Witten score is depicted in a diagram with bar charts. This diagram can determine the correct value for the Milne\&Witten score by separating the valid and invalid links. The diagram is shown in figure \ref{imgMilneWitten2000}.\\
+
+\begin{figure}[h]
+\centering
+\captionsetup{justification=centering}
+\includegraphics[scale=0.8]{images/milnewitten_2000.pdf}
+\caption{The Milne\&Witten score of Wikipedia articles compared to the validity according to GWikimatch.}
+\label{imgMilneWitten2000}
+\end{figure}
+
+When the Milne\&Witten score is a valid indicator for the validity of hyperlinks, there is a range of scores where valid links outnumber the invalid links significantly, and there is a range of scores for which the opposite is true. Nevertheless, the diagram shows that for every value of the Milne\&Witten score, the number of valid links is approximately equal to that of invalid links. From the diagram, the conclusion can be drawn that more than solely using the Milne\&Witten score is needed to indicate whether a link is valid or invalid. 
+
+\section{Using validation sets}
+\label{secUsingValidationSets}
+Neither the shortest path length nor the Milne\&Witten score was found to be a good indicator for determining whether a link is valid, as described in the previous sections. To maximize available resources for this thesis, a better approach would be to use datasets that can be used as the gold standard. One candidate is the GWikiMatch dataset described in section \ref{sectWikidata}.\\
+
+
+

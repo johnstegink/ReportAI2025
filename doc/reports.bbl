@@ -1,0 +1,82 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{SIG}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=HI}{%
+         family={Heitlager},
+         familyi={H\bibinitperiod},
+         given={Ilja},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=KT}{%
+         family={Kuipers},
+         familyi={K\bibinitperiod},
+         given={Tobias},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Visser},
+         familyi={V\bibinitperiod},
+         given={Joost},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE Computer Society}%
+    }
+    \strng{namehash}{HIKTVJ1}
+    \strng{fullhash}{HIKTVJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the 6th international conference on the
+  quality of information and communications technology, QUATIC '07}
+    \field{pages}{30\bibrangedash 39}
+    \field{title}{A practical model for measuring maintainability}
+    \list{location}{1}{%
+      {Washington, DC, USA}%
+    }
+    \field{year}{2007}
+  \endentry
+
+  \entry{complexity}{article}{}
+    \name{author}{1}{}{%
+      {{hash=MTJ}{%
+         family={{McCabe}},
+         familyi={M\bibinitperiod},
+         given={T.\bibnamedelima J.},
+         giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MTJ1}
+    \strng{fullhash}{MTJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/TSE.1976.233837
+    \endverb
+    \field{number}{4}
+    \field{pages}{308\bibrangedash 320}
+    \field{title}{A Complexity Measure}
+    \field{volume}{SE-2}
+    \field{journaltitle}{IEEE Transactions on Software Engineering}
+    \field{year}{1976}
+  \endentry
+\enddatalist
+\endinput
