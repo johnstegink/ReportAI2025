@@ -49,29 +49,29 @@
   
 ## Methods  
   
-### Gradiënt descent  
+- Gradiënt descent  
   
-### Newton’s method 1 variable  
+-  Newton’s method 1 variable  
   
-### Newton’s method 2 variables  
+-  Newton’s method 2 variables  
   
-### Role of eigenvalue  
+-  Role of eigenvalue  
   
-### Hessian matrices  
+-  Hessian matrices  
   
-### BFGS?  
+-  BFGS?  
   
-### Examples and metaphors  
+-  Examples and metaphors  
   
 ## Numerical Examples  
   
-### Python program  
+-  Python program  
   
 ## Collaborantion  
   
-### To be written  
+-  *To be written*  
   
 ## Reflection  
   
-### To be written  
+-  *To be written*  
   
