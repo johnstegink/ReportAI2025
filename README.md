@@ -17,11 +17,9 @@
     - Role of eigenvalue  
     - Hessian matrices  
     - BFGS?  
-- Resuls  
-    - To be described  
-  
-### ...  
-  
+- Results  
+    - *To be written*
+   
 ## Preliminaries  
   
 ### Notation  
