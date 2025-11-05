@@ -15,44 +15,12 @@
 \maketitle
 
 \section{Introduction}
-\subsection{Hessian Matrix}
-\subsubsection{Motivation}
-\begin{itemize}
-  \item 
-    Context
-	\begin{itemize}
-        \item Machine learining
-        \item Loss function
-	\end{itemize}
-    \item Goal
-	\begin{itemize}
-    	\item Accelerate finding minimum
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Context}
-\begin{itemize}
-  \item Machine learining
-  \item Loss function
-\end{itemize}
-\subsubsection{Goal}
-\begin{itemize}
-  \item Accelerate finding minimum
-\end{itemize}
-\subsection{Scope}
-
-\begin{itemize}
-  \item Gradiënt descent
-  \item Newton’s method 1 variable
-  \item Newton’s method 2 variables
-  \item Role of eigenvalue
-  \item Hessian matrices
-\end{itemize}
-
-\subsection{Results}
-
-
-Text\ldots
+The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, ow which the most well known algorithm is gradient descent (sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations. The method for finding the minimum that is discussed in this report is the use of Hessian Matrices (section \ref{HessianMatricesSub}). Both gradient descent and the Hessian matrix make use of the Newton method (sections \ref{Newton1} and \ref{Newton2}).
+	\\
+	\\
+	First a description of gradient descent and Newton's will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables. The gradient descent, Newton's method and Hessian matrices will be described from the calculus point of view. The linear algebra part will not be discussed (especially eigenvalue and eigenvectors).\\
+	\\
+	Using the Hessian Matrix finds the minimum in far less iterations than using gradient descent. The problem of using Hessian Matrices is that calculating a Hessian Matrix is much more complicated and time consuming than using just the derivative as is done using gradient descent.
 
 \section{Preliminaries}
 \subsection{Notation}
@@ -71,30 +39,163 @@ Text\ldots
 \subsection{Problems}
 \subsubsection{Problem 1}
 \subsubsection{Problem 2}
-
-
-
 Text\ldots
 
 
 \section{Methods}
-\begin{itemize}
-  \item 
-    Gradiënt descent
-  \item 
-    Newton’s method 1 variable
-  \item 
-    Newton’s method 2 variables
-  \item 
-    Role of eigenvalue
-  \item 
-    Hessian matrices
-  \item 
-    Examples and metaphors
+\subsection{Gradient descent with one variable}
+\label{GradientDescent1}
+Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}):
 
+Assume that f is also differentiable with derivative $f'(x)$.\\
+We also have a starting point $x_0$.\\
+Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from x, where $\alpha$ is called the learning rate, which we can choose before doing this procedure.\\
+Usual values for $\alpha$ are $0.01$ or $0.05$.\\
+We iterate this, so that we get an array which is recursively defined as:\\
+\[x_{k+1} = x_k - f'(x_k) \cdot \alpha\]
+
+This array will converge to the minimum of f.
+The pitchfalls here are, that the procedure may end in a local minimum, while f has a stronger minimum elsewhere.\\
+Or with a less than optimal choice for the learning rate, the array could even diverge.
+
+\subsection{Gradient descent with two or more variables}
+\label{GradientDescent2}
+With a function $f(x, y)$ of more variables, we can determine the gradient:
+\[
+\nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
+\]
+The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
+\[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
+
+
+\subsection{Newton's method with one variable}
+\label{Newton1}
+Newton's method finds the zeroes of a function f. Because we're interested in finding a minimum of f,
+Newton's method will help us find the zero of it's derivative $f'$ (fig \ref{NewtonMethodFig}).\\
+
+
+\begin{figure}[htbp]
+    \begin{minipage}{0.6\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_01.png}
+    \caption{A continuous function f defined on $\mathbb{R}$ }
+    \label{contfunctionR}
+    \end{minipage}
+    \hfill
+     \begin{minipage}{0.6\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_02.png}
+    	\caption{Newton's method}
+    	\label{NewtonMethodFig}
+	\end{minipage}
+\end{figure}
+Geometrically, when you have the graph of f, and you have a starting point $x_0$, we start by drawing the tangent line.\\
+Then we see where this tangent line intersects with the x-axis. That will be $x_1$.\\
+By iterating this procedure we get an array $(x_k)_{k=0,1,\ldots}$.
+
+From the geometrical aspect of the procedure, we can give a formula between $x_{k+1}$ and $x_k$:
+\[
+x_{k+1} = x_k - (f'(x_k) / f''(x_k))
+\]
+(that is for finding the zero of $f'$)
+The idea is that the array $(x_k)$ converges to the value x where $f'(x) = 0$.\\
+
+In order to know if $f'(x)$ points to a minimum of f, we need to look at the second derivative $f''(x)$:\\
+$f''(x) > 0 \Rightarrow$ f has a minimum at x\\
+$f''(x) < 0 \Rightarrow$ f has a maximum at x\\
+$f''(x) = 0 \Rightarrow$ inconclusive, perhaps an inflection point\\
+
+\subsection{Hessian matrix}
+\label{HessianMatricesSub}
+As explained in section \ref{GradientDescent1} the derivative of a function determines the slope of the tangent line. When the slope is positive the value of the function is increasing and when it is negative the value of the function is decreasing. When the slope is 0 the value of the function is neither rising nor decreasing. This means for this point the function has reached a maximum or minimum value.
+
+To determine whether the found extreme is a maximum or a minimum we can use the curvature of the function. This curvature can be calculated using the second order derivative (the derivative of the derivative). When the value is negative at the extreme, the extreme is a maximum when the second derivatie is negative, it is a minimum when the second derivative is positive. When it is zero no conclusion can be made about the kind of extreme.
+
+This knwolegde can be used, together with the Newton Method, to find minima and maxima for multi variable functions. To be sure that you only find the minimum, the second order derivative must be positive. To determine this, a Hessian matrix is constructed. The Hessian matrix contains all the second order derivates for all combinations of the variables.
+
+Say we have function $f(x,y)$ of 2 variables.\\
+
+Then here we have it's Hessian matrix: 
+\[
+H_f(x,y) = \left[
+\begin{matrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\[1em]
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{matrix}\right]
+\]
+
+A concrete example for the function $f(x) = x^3+y^3+2xy$.
+The first order derivates are:\\
+
+\begin{tabular}{l{3,5cm}l{3cm}}
+\( \frac{\partial f}{\partial x} = 3x^2 + 2y \) & \( \frac{\partial f}{\partial y} = 3y^2 + 2x \) \\
+\end{tabular}
+\\
+\\
+The second order derivatives are:
+\\
+\\
+\begin{tabular}{l{3,5cm}l{3cm}}
+\( \frac{\partial^2 f}{\partial x^2} = 6x \) &\( \frac{\partial^2 f}{\partial x \partial y} = 2 \) \\
+\( \frac{\partial^2 f}{\partial y \partial x} = 2 \) &\( \frac{\partial^2 f}{\partial y^2} = 6y \)
+\end{tabular}
+\\
+\\
+
+This creates the following Hessian Matrix:
+\[
+H = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{bmatrix}
+= \begin{bmatrix}
+6x & 2 \\
+2 & 6y
+\end{bmatrix}
+\]
+
+\subsection{Newton's method with two or more variables}
+\label{Newton2}
+
+Say we have function $f(x,y)$ of 2 variables.\\
+
+Then here we have it's Hessian matrix:
+\[
+H_f(x,y) =
+\begin{pmatrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\[1em]
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{pmatrix}.
+\]
+Now at a given point (x,y) we'll calculate it's eigenvalues $\lambda_1, \lambda_2, \ldots$\\
+(A 2 by 2 matrix would have at most two eigenvalues)\\
+
+If the gradient has value (0,0) at point (x,y) then:
+\begin{itemize}
+    \item If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum
+    \item If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum
+    \item In other cases, it's inconclusive
 \end{itemize}
 
-Text\ldots
+In Newton's method generalized to more than one variables, the formula for the next point is:\\
+\[
+(x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
+\]
+
+\subsection{Example of a function of two variables}
+\label{Example2}
+We will look at this function (fig \ref{3Dsurface}):
+\[
+f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
+\]
+\begin{figure}
+    \includegraphics[width=8.5cm,keepaspectratio]{images/3D_plot.png}
+    \caption{3D surface of $f(x,y)$}
+    \label{3Dsurface}
+\end{figure}
+Visually we see a possible minimum near point $(x,y) = (4,4)$.
+
+
+
+\end{itemize}
 
 \section{Numerical Examples}
 
