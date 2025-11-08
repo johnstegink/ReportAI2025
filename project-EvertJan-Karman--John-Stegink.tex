@@ -68,28 +68,24 @@ We iterate this, so that we get an \textbf{array??} which is recursively defined
 
 This array will converge to the minimum of $f$.
 The pitchfalls here are, that the procedure may end in a local minimum, while $f$ has a stronger minimum elsewhere.\\
-Or with a less than optimal choice for the learning rate, the array could even diverge.
-
-\subsection{Gradient descent with two or more variables}
-\label{GradientDescent2}
-With a function $f(x, y)$ of more variables, we can determine the gradient:
-\[
-\nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
-\]
-The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
-\[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
+Or with a less than optimal choice for the learning rate, the array could even diverge (fig \ref{contfunctionR}A).
 
 
 \subsection{Newton's method with one variable}
 \label{Newton1}
-Newton's method finds the zeroes of a function f. Because we're interested in finding a minimum of f,
-Newton's method will help us find the zero of it's derivative $f'$ (fig \ref{NewtonMethodFig}).\\
+Newton's method finds the zeroes of a function $f$, in cases where solving the equation is not possible. It works by iterating through the following steps (inspired by \cite{NetwtonsMethod}:
+\begin{enumerate}
+  \item Start at a random point on the curve.
+  \item Determine the tangent line at that point (using the derivative).
+  \item Determine the point where the tangent line hits the X-axis
+\item Continue with step 2 until the value does not change significantly anymore. 
+\end{enumerate}
 
 
 \begin{figure}[htbp]
     \begin{minipage}{0.6\textwidth}
 	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_01.png}
-    \caption{A continuous function f defined on $\mathbb{R}$ }
+    \caption{A continuous function $f$ defined on $\mathbb{R}$ }
     \label{contfunctionR}
     \end{minipage}
     \hfill
@@ -99,29 +95,72 @@ Newton's method will help us find the zero of it's derivative $f'$ (fig \ref{New
     	\label{NewtonMethodFig}
 	\end{minipage}
 \end{figure}
-Geometrically, when you have the graph of f, and you have a starting point $x_0$, we start by drawing the tangent line.\\
-Then we see where this tangent line intersects with the x-axis. That will be $x_1$.\\
-By iterating this procedure we get an array $(x_k)_{k=0,1,\ldots}$.
 
+To state it more mathematically: find the value $x_0$ where the tangent line intersects with the x-axis. That will be $x_1$.
+By iterating this procedure we get an array $(x_k)_{k=0,1,\ldots}$.
 From the geometrical aspect of the procedure, we can give a formula between $x_{k+1}$ and $x_k$:
+\[
+x_{k+1} = x_k - (f(x_k) / f'(x_k))
+\]
+(that is for finding the zero of $f$)
+The idea is that the array $(x_k)$ converges to the value of x where $f(x) = 0$.\\
+
+The goal is not to find the point where $f$ crosses the x-axis, but to find an minimum for $f$. This means finding the point where the derivative of $f$ is zero. This can be accomplished with Newton's method by substituting $f'$ for $f$ and $f''$ for $f'$.
 \[
 x_{k+1} = x_k - (f'(x_k) / f''(x_k))
 \]
-(that is for finding the zero of $f'$)
-The idea is that the array $(x_k)$ converges to the value x where $f'(x) = 0$.\\
+And example is depicted in (fig \ref{NewtonMethodFig}).\\
 
 In order to know if $f'(x)$ points to a minimum of f, we need to look at the second derivative $f''(x)$:\\
 $f''(x) > 0 \Rightarrow$ f has a minimum at x\\
 $f''(x) < 0 \Rightarrow$ f has a maximum at x\\
 $f''(x) = 0 \Rightarrow$ inconclusive, perhaps an inflection point\\
 
+
+\subsection{Functions with two or more variables and their derivatives}
+
+A function with one variable describes the result of a calculation with respect to just 1 variable. In practice the result of a function is dependent on more that one variable. For example the price of a house is not only dependent on the floor area of the house, but for example the distance to the nearest shops count, the number of crimes in the area per year etc. This means the function has multiple variables. This is what we see in machine learning most of the time too. An example of a graph of the multi value function can be seen in figure \ref{3Dsurface}. This depicts the function $f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)$. As you can see the function is defined by two variables: $f(x,y)$.\\
+	\\
+	Finding the slope in a point using a function with one variable is easily done by determining the derivative. For multi value functions this is done in only 1 direction at a time. This means the derivatie has te determined with regard to 1 variable the rest of the variables is considered as a constant. \cite{calcworkshopcom2022} describes this very well. 	\\
+	Mathematically:
+	\[
+\frac{\partial f}{\partial x} = f_x(x, y) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta x}
+\]
+
+\[
+\frac{\partial f}{\partial y} = f_y(x, y) = \lim_{\Delta y \to 0} \frac{f(x, y + \Delta y) - f(x, y)}{\Delta y}
+\]
+
+\subsection{Gradient descent with two or more variables}
+\label{GradientDescent2}
+Considering the metaphore in section \ref{GradientDescent1} the x is the number of meters to walk to the west and y is the number of meters to walk to the north, instead of just walking straight ahead.
+
+With a function $f(x, y)$ of more variables, we can determine the gradient:
+\[
+\nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
+\]
+The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
+\[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
+
+
+
 \subsection{Hessian matrix}
 \label{HessianMatricesSub}
-As explained in section \ref{GradientDescent1} the derivative of a function determines the slope of the tangent line. When the slope is positive the value of the function is increasing and when it is negative the value of the function is decreasing. When the slope is 0 the value of the function is neither rising nor decreasing. This means for this point the function has reached a maximum or minimum value.
+The Hessian matrix is a matrix with which local extremes of a function kan be found. It helps to identify saddle points, local minima and local maxima. A saddle point is a function does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix.
+\begin{itemize}
+  \item It is a maximum when $\forall x \rightarrow x^tAx > 0$ 
+  \item It is a minimum when $\forall x \rightarrow x^tAx < 0$
+  \item It is a saddle point when it is neither a maximum or a minimum
+  \item If the value of $\det(A) = 0$ then it is indecisive.
+\end{itemize}
+
+
+
+The derivative of a function determines the slope of the tangent line. When the slope is positive the value of the function is increasing and when it is negative the value of the function is decreasing. When the slope is 0 the value of the function is neither rising nor decreasing. This means for this point the function has reached a maximum or minimum value.
 
 To determine whether the found extreme is a maximum or a minimum we can use the curvature of the function. This curvature can be calculated using the second order derivative (the derivative of the derivative). When the value is negative at the extreme, the extreme is a maximum when the second derivatie is negative, it is a minimum when the second derivative is positive. When it is zero no conclusion can be made about the kind of extreme.
 
-This knwolegde can be used, together with the Newton Method, to find minima and maxima for multi variable functions. To be sure that you only find the minimum, the second order derivative must be positive. To determine this, a Hessian matrix is constructed. The Hessian matrix contains all the second order derivates for all combinations of the variables.
+This knowledge can be used, together with the Newton Method, to find minima and maxima for multi variable functions. To be sure that you only find the minimum, the second order derivative must be positive. To determine this, a Hessian matrix is constructed. The Hessian matrix contains all the second order derivates for all combinations of the variables.
 
 Say we have function $f(x,y)$ of 2 variables.\\
 
@@ -133,6 +172,8 @@ H_f(x,y) = \left[
 \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
 \end{matrix}\right]
 \]
+This matrix is diagonal because 
+$\frac{\partial^2 f}{\partial x \partial y}$ = $\frac{\partial^2 f}{\partial y \partial x}$. This is because of Clairaut’s Theorem, which is not explained further in this report.
 
 A concrete example for the function $f(x) = x^3+y^3+2xy$.
 The first order derivates are:\\
@@ -204,7 +245,7 @@ f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
     \label{3Dsurface}
 \end{figure}
 Visually we see a possible minimum near point $(x,y) = (4,4)$.
-
+Volgens \cite{calcworkshopcom2022} is de relativiteitstheorie revolutionair.
 
 
 \end{itemize}
@@ -227,6 +268,9 @@ Text\ldots
 
 Text\ldots
 
+\bibliographystyle{plainnat} % Kies een stijl, bijvoorbeeld plainnat, abbrvnat, of apalike
+\bibliography{references} % Zonder de .bib-extensie
+
 \appendix
 \section{Metaphores}
 \subsection{Gradient descent}
@@ -235,6 +279,5 @@ The basic intuition behind gradient descent can be illustrated by a hypothetical
 \\
 In this analogy, the people represent the algorithm, and the path taken down the mountain represents the sequence of parameter settings that the algorithm will explore. The steepness of the hill represents the slope of the function at that point. The instrument used to measure steepness is differentiation. The direction they choose to travel in aligns with the gradient of the function at that point. The amount of time they travel before taking another measurement is the step size. \\
 
-	Copied from \textit{https://en.wikipedia.org/wiki/Gradient\_descent}
-
+	Copied from \cite{Wikipedia2025_gd}.
 \end{document}  
