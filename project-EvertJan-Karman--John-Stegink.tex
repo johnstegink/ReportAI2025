@@ -133,7 +133,7 @@ A function with one variable describes the result of a calculation with respect 
 
 \subsection{Gradient descent with two or more variables}
 \label{GradientDescent2}
-Considering the metaphore in section \ref{GradientDescent1} the x is the number of meters to walk to the west and y is the number of meters to walk to the north, instead of just walking straight ahead.
+Considering the metaphore in section \ref{GradientDescent1} the x is the number of steps to walk to the west and y is the number of meters to walk to the north, instead of just walking straight ahead.
 
 With a function $f(x, y)$ of more variables, we can determine the gradient:
 \[
@@ -146,25 +146,17 @@ The method is the same, but where we took the derivative for one variable, we wi
 
 \subsection{Hessian matrix}
 \label{HessianMatricesSub}
-The Hessian matrix is a matrix with which local extremes of a function kan be found. It helps to identify saddle points, local minima and local maxima. A saddle point is a function does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix.
+The Hessian matrix is a matrix with which local extremes of a function kan be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix.
 \begin{itemize}
-  \item It is a maximum when $\forall x \rightarrow x^tAx > 0$ 
-  \item It is a minimum when $\forall x \rightarrow x^tAx < 0$
-  \item It is a saddle point when it is neither a maximum or a minimum
-  \item If the value of $\det(A) = 0$ then it is indecisive.
+  \item It is a maximum when all eigenvalues are greater than 0.
+  \item It is a maximum when all eigenvalues are less than 0.
+  \item It is a saddlepoint when the product of all eigenvalues are 0.
+  \item Otherwise it is indecisive.
 \end{itemize}
 
+The calculus and lineair algebra is not in the scope of this report. If you want to know why, \cite{nocedal2006numerical} is a good reference. 
 
-
-The derivative of a function determines the slope of the tangent line. When the slope is positive the value of the function is increasing and when it is negative the value of the function is decreasing. When the slope is 0 the value of the function is neither rising nor decreasing. This means for this point the function has reached a maximum or minimum value.
-
-To determine whether the found extreme is a maximum or a minimum we can use the curvature of the function. This curvature can be calculated using the second order derivative (the derivative of the derivative). When the value is negative at the extreme, the extreme is a maximum when the second derivatie is negative, it is a minimum when the second derivative is positive. When it is zero no conclusion can be made about the kind of extreme.
-
-This knowledge can be used, together with the Newton Method, to find minima and maxima for multi variable functions. To be sure that you only find the minimum, the second order derivative must be positive. To determine this, a Hessian matrix is constructed. The Hessian matrix contains all the second order derivates for all combinations of the variables.
-
-Say we have function $f(x,y)$ of 2 variables.\\
-
-Then here we have it's Hessian matrix: 
+Say we have function $f(x,y)$ of 2 variables. Then we get a square matrix having te following format:
 \[
 H_f(x,y) = \left[
 \begin{matrix}
@@ -175,7 +167,21 @@ H_f(x,y) = \left[
 This matrix is diagonal because 
 $\frac{\partial^2 f}{\partial x \partial y}$ = $\frac{\partial^2 f}{\partial y \partial x}$. This is because of Clairaut’s Theorem, which is not explained further in this report.
 
-A concrete example for the function $f(x) = x^3+y^3+2xy$.
+How does this work in practice? This is a concrete example for the function $f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$ (fig \ref{HessiaansVoorbeeld}).
+
+\begin{figure}[htbp]
+     \begin{minipage}{0.4\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/zadelpunt.png}
+    	\caption{A saddle point}
+    	\label{SaddlePoint}
+	\end{minipage}
+    \hfill
+    \begin{minipage}{0.6\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/HessianMatrixGrafiek.png}
+    \caption{$f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$}
+    \label{HessiaansVoorbeeld}
+    \end{minipage}
+\end{figure}
 The first order derivates are:\\
 
 \begin{tabular}{l{3,5cm}l{3cm}}
@@ -203,6 +209,19 @@ H = \begin{bmatrix}
 6x & 2 \\
 2 & 6y
 \end{bmatrix}
+\]
+
+For the point x = 1, y = 2 the matrix becomes 
+\[
+\begin{bmatrix}
+6x & 2 \\
+2 & 6y
+\end{bmatrix} =
+\begin{bmatrix}
+6 & 2 \\
+2 & 12
+\end{bmatrix}
+\Rightarrow \lambda_1 = 9 +\srt{13}, \lambda_1 = 9 -\srt{13}. This is not a minimum
 \]
 
 \subsection{Newton's method with two or more variables}
@@ -239,11 +258,23 @@ We will look at this function (fig \ref{3Dsurface}):
 \[
 f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
 \]
-\begin{figure}
-    \includegraphics[width=8.5cm,keepaspectratio]{images/3D_plot.png}
+
+
+\begin{figure}[htbp]
+     \begin{minipage}{0.55\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/zadelpunt.png}
+    	\caption{The red arrow denotes a saddle point}
+    	\label{SaddlePoint}
+	\end{minipage}
+    \hfill
+    \begin{minipage}{0.6\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/3D_plot.png}
     \caption{3D surface of $f(x,y)$}
     \label{3Dsurface}
+    \end{minipage}
 \end{figure}
+
+
 Visually we see a possible minimum near point $(x,y) = (4,4)$.
 Volgens \cite{calcworkshopcom2022} is de relativiteitstheorie revolutionair.
 
