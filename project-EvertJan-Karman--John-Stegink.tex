@@ -17,15 +17,12 @@
 \section{Introduction}
 The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent (sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations. The method for finding the minimum that is discussed in this report is the use of Hessian Matrices (section \ref{HessianMatricesSub}). Both gradient descent and the Hessian matrix make use of the Newton method (sections \ref{Newton1} and \ref{Newton2}).
 	\\
-	\\
 	First a description of gradient descent and Newton's will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables. The gradient descent, Newton's method and Hessian matrices will be described from the calculus point of view. The linear algebra part will not be discussed (especially eigenvalue and eigenvectors). Reading this report a requires basic understanding of machine learning, especially the proces of machine learning (training and deployment) and the principles of supervised learning.
-	\\
 	\\
 	Using the Hessian Matrix finds the minimum in far less iterations than using gradient descent. The problem of using Hessian Matrices is that calculating a Hessian Matrix is much more complicated and time consuming than using just the derivative as is done using gradient descent.
 
 \section{Preliminaries}
 The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning. The derivatives of multi variable functions are not mentioned. $ \frac{\partial^2 f}{\partial x \partial y}$ denotes the partial derivative of function $(f(x,y)$ with regard to $y$ en then to $x$.\\
-
 The techniques used and explained in this report are:
 \begin{itemize}
   \item 
@@ -59,6 +56,7 @@ The techniques used and explained in this report are:
 \\
 \\
 After reading the report, please solve the following problems:\\
+\\
 \textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
 \\
 \textbf{Answer 1}: The Hessian matrix becomes $H = \begin{bmatrix}
@@ -73,9 +71,9 @@ After reading the report, please solve the following problems:\\
 2 & 12
 \end{bmatrix}$
 \\
-\textbf{Question 2}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
+\textbf{Question 2}: 
 \\
-\textbf{Answer 2}: The Hessian matrix becomes $H = \begin{bmatrix}
+\textbf{Answer 2}:
 
 
 \section{Methods}
@@ -83,20 +81,14 @@ After reading the report, please solve the following problems:\\
 \label{GradientDescent1}
 The purpose of using gradient descent is to find a local or global minimum of a differentiable function by iteratively adjusting the parameters in the direction of the steepest descent. This a mouthful. \\It can be clarified by the following metaphor: 	When you want to find the path from the top to the foot of the mountain in the mist. You walk a few meters down the path with the steepest descent. Then you determine the next path with the steepest descent\footnote{https://en.wikipedia.org/wiki/Gradient\_descent}. Appendix \ref{metaGradientDescent} contains a more detailed version of this metaphor.
 \\
-\\Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}).This function:
-\begin{itemize}
-  \item is differentiable with derivative $f'(x)$.
-  \item has a starting point $x_0$.
-\end{itemize}
-
-Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from {x_0}, where $\alpha$ is called the learning rate. This is equal to walking the path in the steepest descent by $\alpha$ meters in the metaphore. The value of $\alpha$  will be chosen before starting the procedure. Usual values for $\alpha$ are $0.01$ or $0.05$.\\
-\\
+Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}).This function is differentiable with derivative $f'(x)$ and has a starting point $x_0$.
+Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from $x_0$, where $\alpha$ is called the learning rate. This is equal to walking the path in the steepest descent by $\alpha$ meters in the metaphore. The value of $\alpha$  will be chosen before starting the procedure. Usual values for $\alpha$ are $0.01$ or $0.05$.\\
 We iterate this, so that we get an \textbf{array??} which is recursively defined as:\\
 \[x_{k+1} = x_k - f'(x_k) \cdot \alpha\]
 
 This array will converge to the minimum of $f$ (fig \ref{contfunctionR}).
 The pitchfalls here are, that the procedure may end in a local minimum, while $f$ has a stronger minimum elsewhere.\\
-Or with a less than optimal choice for the learning rate, the array could even diverge .
+Or with a less than optimal choice for the learning rate, the array could even diverge.
 
 
 \subsection{Newton's method with one variable}
@@ -111,14 +103,14 @@ Newton's method finds the zeroes of a function $f$, in cases where solving the e
 
 
 \begin{figure}[htbp]
-    \begin{minipage}{0.45\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_01.png}
+    \begin{minipage}{0.4\textwidth}
+	    \includegraphics[width=5cm,keepaspectratio]{images/fx_example_01.png}
     \caption{A continuous function $f$ defined on $\mathbb{R}$ }
     \label{contfunctionR}
     \end{minipage}
     \hfill
-     \begin{minipage}{0.45\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_02.png}
+     \begin{minipage}{0.4\textwidth}
+	    \includegraphics[width=5cm,keepaspectratio]{images/fx_example_02.png}
     	\caption{Newton's method}
     	\label{NewtonMethodFig}
 	\end{minipage}
@@ -131,24 +123,20 @@ From the geometrical aspect of the procedure, we can give a formula between $x_{
 x_{k+1} = x_k - (f(x_k) / f'(x_k))
 \]
 (that is for finding the zero of $f$)
-The idea is that the array $(x_k)$ converges to the value of x where $f(x) = 0$.\\
-
+The idea is that the array $(x_k)$ converges to the value of x where $f(x) = 0$.
 The goal is not to find the point where $f$ crosses the x-axis, but to find an minimum for $f$. This means finding the point where the derivative of $f$ is zero. This can be accomplished with Newton's method by substituting $f'$ for $f$ and $f''$ for $f'$.
 \[
 x_{k+1} = x_k - (f'(x_k) / f''(x_k))
 \]
-And example is depicted in (fig \ref{NewtonMethodFig}).\\
-
+An example is depicted in (fig \ref{NewtonMethodFig}).\\
 In order to know if $f'(x)$ points to a minimum of f, we need to look at the second derivative $f''(x)$:\\
 $f''(x) > 0 \Rightarrow$ f has a minimum at x\\
 $f''(x) < 0 \Rightarrow$ f has a maximum at x\\
 $f''(x) = 0 \Rightarrow$ inconclusive, perhaps an inflection point\\
 
-
 \subsection{Functions with two or more variables and their derivatives}
 
 A function with one variable describes the result of a calculation with respect to just 1 variable. In practice the result of a function is dependent on more that one variable. For example the price of a house is not only dependent on the floor area of the house, but for example the distance to the nearest shops count, the number of crimes in the area per year etc. This means the function has multiple variables. This is what we see in machine learning most of the time too. An example of a graph of the multi value function can be seen in figure \ref{3Dsurface}. This depicts the function $f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)$. As you can see the function is defined by two variables: $f(x,y)$.\\
-	\\
 	Finding the slope in a point using a function with one variable is easily done by determining the derivative. For multi value functions this is done in only 1 direction at a time. This means the derivatie has te determined with regard to 1 variable the rest of the variables is considered as a constant. \cite{calcworkshopcom2022} describes this very well. 	\\
 	Mathematically:
 	\[
@@ -162,21 +150,15 @@ A function with one variable describes the result of a calculation with respect 
 \subsection{Gradient descent with two or more variables}
 \label{GradientDescent2}
 Considering the metaphore in section \ref{GradientDescent1} the x is the number of steps to walk to the west and y is the number of meters to walk to the north, instead of just walking straight ahead.
-
 With a function $f(x, y)$ of more variables, we can determine the gradient:
 \[
 \nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
 \]
-
 The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
 \[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
-
-
-
 \subsection{Hessian matrix}
 \label{HessianMatricesSub}
-The second derivative of a function tells something about the curvature of a function in a certain point. A function is convex at a point when the second derivative is positive, and concave if it is negative. When the value of the second derivative is zero the point is an inflection point, a point at which te curvature changes sign. This is possibly a minimum or maximum of the function.
-
+The second derivative of a function tells something about the curvature of a function in a certain point. A function is convex at a point when the second derivative is positive, and concave if it is negative. When the value of the second derivative is zero the point is an inflection point, a point at which te curvature changes sign. This is possibly a minimum or maximum of the function.\\
 A Hessian matrix is a squared matrix containing all second derivatives of a multi valued function.
 Say we have function $f(x,y)$ of 2 variables. Then we get a square matrix having te following format:
 \[
@@ -209,18 +191,14 @@ Generally a Hessian Matrix has the form: $\mathbf{H}_f =
 
 The Hessian matrix is a symmetric matrix, because of Clairaut’s Theorem. This theorem states that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$.
 
-With Hessian matrix local extremes of a function can be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix (section \ref{Newton2}).
-
+With Hessian matrix local extremes of a function can be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix (section \ref{Newton2}).\\
 The lineair algebra part of Hessian matrices is not in the scope of this report. If you want to to have a thourough explanation, \cite{nocedal2006numerical} is a good reference. 
-Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. A often used algorithm that uses an approximation is BFGS.
-\\
+Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. An often used algorithm that uses an approximation is BFGS.
 
 \subsection{Newton's method with two or more variables}
 \label{Newton2}
-
 The main principles of Newton's method with one variable apply to Newton's method with two or more variables.
 Say we have function $f(x,y)$ (containing 2 variables).\\
-
 Then here we have it's Hessian matrix:
 \[
 H_f(x,y) =
@@ -232,50 +210,68 @@ H_f(x,y) =
 Now at a given point (x,y) we'll calculate it's eigenvalues $\lambda_1, \lambda_2, \ldots$\\
 (A 2 by 2 matrix would have at most two eigenvalues)\\
 
-If the gradient has value (0,0) at point (x,y) then:
-\begin{itemize}
-    \item If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum
-    \item If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum
-    \item If one of the eigenvalues of $H_f$ at (x,y) are zero, it's a saddle point
-    \item In other cases, it's inconclusive
-\end{itemize}
-
-In Newton's method generalized to more than one variables, the formula for the next point is:\\
+If the gradient has value (0,0) at point (x,y) then:\\
+- If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum\\
+- If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum\\
+- If one of the eigenvalues of $H_f$ at (x,y) are zero, it's a saddle point\\
+- In other cases, it's inconclusive\\
+In Newton's method generalized to more than one variables, the formula for the next point is:
 \[
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
 \]
 
-\subsection{Example of a function of two variables}
-\label{Example2}
+\section{Numerical Examples}
 We will look at this function (fig \ref{3Dsurface}):
 \[
 f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
 \]
-
-
 \begin{figure}[htbp]
-    \begin{minipage}{0.5\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/zadelpunt}
+    \begin{minipage}{0.4\textwidth}
+	    \includegraphics[width=6.5cm,keepaspectratio]{images/zadelpunt}
     \caption{A saddle point}
     \label{SaddlePoint}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.5\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/3D_plot.png}
+    \begin{minipage}{0.4\textwidth}
+	    \includegraphics[width=6.5cm,keepaspectratio]{images/3D_plot.png}
     \caption{3D surface of $f(x,y)$}
     \label{3Dsurface}
     \end{minipage}
 \end{figure}
-
-
 Visually we see a possible minimum near point $(x,y) = (4,4)$.
+We'll take $(x_0,y_0) = (1,1)$ and $\alpha = 0.01$ and from there, carry out gradient descent as actual example.\\
+For gradient descent, we know that we need the formula for the gradient:
+\[
+\nabla f(x,y) = \left( - \frac{1}{90}(3x^2-12x)y^2(y-6), - \frac{1}{90}x^2(x-6)(3y^2-12y) \right)
+\]
+When we fill in x=1 and y=1 we calculate a gradient of (-0.5, -0.5). We subtract this, multiplied by the learning rate, from (0, 0) and go to the next iteration. Here we continued with a Python script that produced the output shown in appendix \ref{gradientDescentPython}.
+We see (x,y) approach (4,4) and we see the gradient approach (0,0). It takes 249 iterations.
+We also tried learning rate 0.05. Then we saw the same behaviour, but only 56 iterations (a tolerance of 1e-4 was used for comparing floats).
 
+Now we will try to find the minimum using Newton's method. For this we need the second order derivatives:\\
+\[
+\frac{\partial^2 f}{\partial x^2} = - \frac{1}{90}(6x-12)y^2(y-6)
+\]
+\[
+\frac{\partial^2 f}{\partial x \partial y} = - \frac{1}{90}(3x^2-12x)(3y^2-12y)
+\]
+\[
+\frac{\partial^2 f}{\partial y \partial x} = - \frac{1}{90}(3x^2-12x)(3y^2-12y)
+\]
+\[
+\frac{\partial^2 f}{\partial y^2} = - \frac{1}{90}x^2(x-6)(6y-12)
+\]
 
-\end{itemize}
+We implemented the steps above in a python script and saw the output from appendix \ref{NewtonPython}. This converges to point (0,0). The eigenvalues of the Hessian are almost zero. So Newton's method brings us from (1,1) to a stationary point (0,0) which is not a minimum. This happened from many other points. When we choose a starting point real close to (4,4) only then it will converge to our expected minimum as can be seen in appendix \ref{NewtonPython2}.\\
+The point reached here is indeed (4,4). The eigenvalues of the Hessian are positive, and indeed this is in line with that we already know, that (4,4) is a minimum. 
+From (3.2,3.2) it took 5 iterations. When we try Gradient Descent from this point (3.2,3.2) we will see the number of iterations for that:
 
-\section{Numerical Examples}
-
-Text\ldots
+{\footnotesize
+\begin{verbatim}
+Gradient Descent from (3.2,3.2) with learning rate 0.01 takes 109 iterations to reach (4,4).
+Gradient Descent from (3.2,3.2) with learning rate 0.05 takes 27 iterations to reach (4,4).
+\end{verbatim}
+}
 
 \section{Collaboration}
 
@@ -303,4 +299,68 @@ The basic intuition behind gradient descent can be illustrated by a hypothetical
 In this analogy, the people represent the algorithm, and the path taken down the mountain represents the sequence of parameter settings that the algorithm will explore. The steepness of the hill represents the slope of the function at that point. The instrument used to measure steepness is differentiation. The direction they choose to travel in aligns with the gradient of the function at that point. The amount of time they travel before taking another measurement is the step size. \\
 
 	Copied from \cite{Wikipedia2025_gd}.
+\section{Output of Python scripts for Hessian Matrices}
+\subsection{Gradient descent}
+\label{gradientDescentPython}
+{\footnotesize
+\begin{verbatim}
+0. x 1 y 1 --> (-0.500000000000000,-0.500000000000000)
+1. x 1.00500000000000 y 1.00500000000000 --> (-0.506184974895937,-0.506184974895937)
+2. x 1.01006184974896 y 1.01006184974896 --> (-0.512483652519824,-0.512483652519824)
+3. x 1.01518668627416 y 1.01518668627416 --> (-0.518898669704649,-0.518898669704649)
+...
+246. x 3.98976321048153 y 3.98976321048153 --> (-0.0435643360994635,-0.0435643360994638)
+247. x 3.99019885384252 y 3.99019885384252 --> (-0.0417150068300141,-0.0417150068300138)
+248. x 3.99061600391082 y 3.99061600391082 --> (-0.0399437948089941,-0.0399437948089938)
+249. x 3.99101544185891 y 3.99101544185891 --> (-0.0382474329314844,-0.0382474329314846)
+\end{verbatim}
+}
+\subsection{Newton's method, first iteration}
+\label{NewtonPython}
+{\footnotesize
+\begin{verbatim}
+(1.0000,1.0000) - (0.4054,0.4054) = (0.5946,0.5946)
+(0.5946,0.5946) - (0.2190,0.2190) = (0.3756,0.3756)
+(0.3756,0.3756) - (0.1327,0.1327) = (0.2429,0.2429)
+(0.2429,0.2429) - (0.0839,0.0839) = (0.1589,0.1589)
+(0.1589,0.1589) - (0.0542,0.0542) = (0.1047,0.1047)
+(0.1047,0.1047) - (0.0354,0.0354) = (0.0693,0.0693)
+(0.0693,0.0693) - (0.0233,0.0233) = (0.0460,0.0460)
+(0.0460,0.0460) - (0.0154,0.0154) = (0.0305,0.0305)
+(0.0305,0.0305) - (0.0102,0.0102) = (0.0203,0.0203)
+(0.0203,0.0203) - (0.0068,0.0068) = (0.0135,0.0135)
+(0.0135,0.0135) - (0.0045,0.0045) = (0.0090,0.0090)
+(0.0090,0.0090) - (0.0030,0.0030) = (0.0060,0.0060)
+(0.0060,0.0060) - (0.0020,0.0020) = (0.0040,0.0040)
+(0.0040,0.0040) - (0.0013,0.0013) = (0.0027,0.0027)
+(0.0027,0.0027) - (0.0009,0.0009) = (0.0018,0.0018)
+(0.0018,0.0018) - (0.0006,0.0006) = (0.0012,0.0012)
+(0.0012,0.0012) - (0.0004,0.0004) = (0.0008,0.0008)
+(0.0008,0.0008) - (0.0003,0.0003) = (0.0005,0.0005)
+(0.0005,0.0005) - (0.0002,0.0002) = (0.0004,0.0004)
+(0.0004,0.0004) - (0.0001,0.0001) = (0.0002,0.0002)
+(0.0002,0.0002) - (0.0001,0.0001) = (0.0002,0.0002)
+
+Hessian from last iteration: [[-4.37584933e-08 -8.75203986e-08]
+ [-8.75203986e-08 -4.37584933e-08]]
+Eigenvalues of Hessian: [-1.31278892e-07  4.37619053e-08]
+\end{verbatim}
+}
+\subsection{Newton's method, second iteration}
+\label{NewtonPython2}
+{\footnotesize
+\begin{verbatim}
+(3.2000,3.2000) - (-1.4933,-1.4933) = (4.6933,4.6933)
+(4.6933,4.6933) - (0.7598,0.7598) = (3.9336,3.9336)
+(3.9336,3.9336) - (-0.0677,-0.0677) = (4.0013,4.0013)
+(4.0013,4.0013) - (0.0013,0.0013) = (4.0000,4.0000)
+(4.0000,4.0000) - (0.0000,0.0000) = (4.0000,4.0000)
+
+Hessian from last iteration: [[ 4.26666750e+00 -2.45347276e-13]
+ [-2.45347276e-13  4.26666750e+00]]
+Eigenvalues of Hessian: [4.2666675 4.2666675]
+\end{verbatim} 
+}
+
+
 \end{document}  
