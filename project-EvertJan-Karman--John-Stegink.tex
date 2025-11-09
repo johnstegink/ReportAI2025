@@ -83,11 +83,6 @@ Newton's method finds the zeroes of a function $f$, in cases where solving the e
 
 
 \begin{figure}[htbp]
-    \begin{minipage}{0.6\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_01.png}
-    \caption{A continuous function $f$ defined on $\mathbb{R}$ }
-    \label{contfunctionR}
-    \end{minipage}
     \hfill
      \begin{minipage}{0.6\textwidth}
 	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_02.png}
@@ -165,73 +160,6 @@ With Hessian matrix local extremes of a function can be found. It helps to ident
 The lineair algebra part of Hessian matrices is not in the scope of this report. If you want to to have a thourough explanation, \cite{nocedal2006numerical} is a good reference. 
 Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. A often used algorithm that uses an approximation is BFGS.
 
-\begin{figure}[htbp]
-     \begin{minipage}{0.4\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/zadelpunt.png}
-    	\caption{A saddle point}
-    	\label{SaddlePoint}
-	\end{minipage}
-    \hfill
-    \begin{minipage}{0.6\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/HessianMatrixGrafiek.png}
-    \caption{$f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$}
-    \label{HessiaansVoorbeeld}
-    \end{minipage}
-\end{figure}
-\\
-BEGIN VOORBEELD AANVULLEN\\
-\\
-How does this work in practice? This is a concrete example for the function $f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$ (fig \ref{HessiaansVoorbeeld}).
-
-The first order derivates are:\\
-
-\begin{tabular}{l{3,5cm}l{3cm}}
-\( \frac{\partial f}{\partial x} = 4x^3 - 4y + x \) & \( \frac{\partial f}{\partial y} = 4y^3 - 4x + y \) \\
-\end{tabular}
-\\
-\\
-The second order derivatives are:
-\\
-\\
-\begin{tabular}{l{3,5cm}l{3cm}}
-\( \frac{\partial^2 f}{\partial x^2} = 12x^2 + 1 \) &\( \frac{\partial^2 f}{\partial x \partial y} = -4 \) \\
-\( \frac{\partial^2 f}{\partial y \partial x} = -4\) &\( \frac{\partial^2 f}{\partial y^2} = 12y^2 + 1 \)
-\end{tabular}
-\\
-\\
-
-This creates the following Hessian Matrix:
-\[
-H = \begin{bmatrix}
-\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
-\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
-\end{bmatrix}
-= \begin{bmatrix}
-12x^2 + 1  & 4 \\
-4 & 12y^2 + 1 
-\end{bmatrix}
-\]
-
-For the point x = 1, y = 2 the matrix becomes 
-\[
-\begin{bmatrix}
-12 & 4 \\
-4 & 48
-\end{bmatrix} 
-\Rightarrow \lambda_1 = 30 - 2 \sqrt{85}, \lambda_1 = 30 + 2 \sqrt{85}.
-\]
-This is inconclusive, so no maximum, minimum or saddle point. \\
-For the point x = $\frac{\sqrt{3}}{2}$ and y = $\frac{\sqrt{3}}{2}$ the matrix becomes:
-\[
-\begin{bmatrix}
-10 & 4 \\
-4 & 10
-\end{bmatrix} 
-\Rightarrow \lambda_1 = 30 - 2 \sqrt{85}, \lambda_1 = 9 -\srt{13}.
-\]
-This is inconclusive. For the point  ddd
-\\
-EIND VOORBEELD AANVULLEN\\
 \\
 
 \subsection{Newton's method with two or more variables}
@@ -273,17 +201,21 @@ f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
 
 
 \begin{figure}[htbp]
-    \begin{minipage}{0.6\textwidth}
+    \begin{minipage}{0.5\textwidth}
+	    \includegraphics[width=7.5cm,keepaspectratio]{images/fx_example_01.png}
+    \caption{A continuous function $f$ defined on $\mathbb{R}$ }
+    \label{contfunctionR}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
 	    \includegraphics[width=7.5cm,keepaspectratio]{images/3D_plot.png}
     \caption{3D surface of $f(x,y)$}
     \label{3Dsurface}
     \end{minipage}
-    \hfill
 \end{figure}
 
 
 Visually we see a possible minimum near point $(x,y) = (4,4)$.
-Volgens \cite{calcworkshopcom2022} is de relativiteitstheorie revolutionair.
 
 
 \end{itemize}
