@@ -66,9 +66,9 @@ Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from {x_0}, where $\alph
 We iterate this, so that we get an \textbf{array??} which is recursively defined as:\\
 \[x_{k+1} = x_k - f'(x_k) \cdot \alpha\]
 
-This array will converge to the minimum of $f$.
+This array will converge to the minimum of $f$ (fig \ref{contfunctionR}).
 The pitchfalls here are, that the procedure may end in a local minimum, while $f$ has a stronger minimum elsewhere.\\
-Or with a less than optimal choice for the learning rate, the array could even diverge (fig \ref{contfunctionR}A).
+Or with a less than optimal choice for the learning rate, the array could even diverge .
 
 
 \subsection{Newton's method with one variable}
@@ -146,16 +146,9 @@ The method is the same, but where we took the derivative for one variable, we wi
 
 \subsection{Hessian matrix}
 \label{HessianMatricesSub}
-The Hessian matrix is a matrix with which local extremes of a function kan be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix.
-\begin{itemize}
-  \item It is a maximum when all eigenvalues are greater than 0.
-  \item It is a maximum when all eigenvalues are less than 0.
-  \item It is a saddlepoint when the product of all eigenvalues are 0.
-  \item Otherwise it is indecisive.
-\end{itemize}
+The second derivative of a function tells something about the curvature of a function in a certain point. A function is convex at a point when the second derivative is positive, and concave if it is negative. When the value of the second derivative is zero the point is an inflection point, a point at which te curvature changes sign. This is possibly a minimum or maximum of the function.
 
-The calculus and lineair algebra is not in the scope of this report. If you want to know why, \cite{nocedal2006numerical} is a good reference. 
-
+A Hessian matrix is a squared matrix containing all second derivatives of a multi valued function.
 Say we have function $f(x,y)$ of 2 variables. Then we get a square matrix having te following format:
 \[
 H_f(x,y) = \left[
@@ -164,10 +157,13 @@ H_f(x,y) = \left[
 \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
 \end{matrix}\right]
 \]
-This matrix is diagonal because 
-$\frac{\partial^2 f}{\partial x \partial y}$ = $\frac{\partial^2 f}{\partial y \partial x}$. This is because of Clairaut’s Theorem, which is not explained further in this report.
 
-How does this work in practice? This is a concrete example for the function $f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$ (fig \ref{HessiaansVoorbeeld}).
+The Hessian matrix is a symmetric matrix, because of Clairaut’s Theorem. This theorem states that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$.
+
+With Hessian matrix local extremes of a function can be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix (section \ref{Newton2}).
+
+The lineair algebra part of Hessian matrices is not in the scope of this report. If you want to to have a thourough explanation, \cite{nocedal2006numerical} is a good reference. 
+Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. A often used algorithm that uses an approximation is BFGS.
 
 \begin{figure}[htbp]
      \begin{minipage}{0.4\textwidth}
@@ -182,10 +178,15 @@ How does this work in practice? This is a concrete example for the function $f(x
     \label{HessiaansVoorbeeld}
     \end{minipage}
 \end{figure}
+\\
+BEGIN VOORBEELD AANVULLEN\\
+\\
+How does this work in practice? This is a concrete example for the function $f(x, y) = x^4 + y^4 - 4xy + 0.5x^2 + 0.5y^2$ (fig \ref{HessiaansVoorbeeld}).
+
 The first order derivates are:\\
 
 \begin{tabular}{l{3,5cm}l{3cm}}
-\( \frac{\partial f}{\partial x} = 3x^2 + 2y \) & \( \frac{\partial f}{\partial y} = 3y^2 + 2x \) \\
+\( \frac{\partial f}{\partial x} = 4x^3 - 4y + x \) & \( \frac{\partial f}{\partial y} = 4y^3 - 4x + y \) \\
 \end{tabular}
 \\
 \\
@@ -193,8 +194,8 @@ The second order derivatives are:
 \\
 \\
 \begin{tabular}{l{3,5cm}l{3cm}}
-\( \frac{\partial^2 f}{\partial x^2} = 6x \) &\( \frac{\partial^2 f}{\partial x \partial y} = 2 \) \\
-\( \frac{\partial^2 f}{\partial y \partial x} = 2 \) &\( \frac{\partial^2 f}{\partial y^2} = 6y \)
+\( \frac{\partial^2 f}{\partial x^2} = 12x^2 + 1 \) &\( \frac{\partial^2 f}{\partial x \partial y} = -4 \) \\
+\( \frac{\partial^2 f}{\partial y \partial x} = -4\) &\( \frac{\partial^2 f}{\partial y^2} = 12y^2 + 1 \)
 \end{tabular}
 \\
 \\
@@ -206,28 +207,38 @@ H = \begin{bmatrix}
 \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
 \end{bmatrix}
 = \begin{bmatrix}
-6x & 2 \\
-2 & 6y
+12x^2 + 1  & 4 \\
+4 & 12y^2 + 1 
 \end{bmatrix}
 \]
 
 For the point x = 1, y = 2 the matrix becomes 
 \[
 \begin{bmatrix}
-6x & 2 \\
-2 & 6y
-\end{bmatrix} =
-\begin{bmatrix}
-6 & 2 \\
-2 & 12
-\end{bmatrix}
-\Rightarrow \lambda_1 = 9 +\srt{13}, \lambda_1 = 9 -\srt{13}. This is not a minimum
+12 & 4 \\
+4 & 48
+\end{bmatrix} 
+\Rightarrow \lambda_1 = 30 - 2 \sqrt{85}, \lambda_1 = 30 + 2 \sqrt{85}.
 \]
+This is inconclusive, so no maximum, minimum or saddle point. \\
+For the point x = $\frac{\sqrt{3}}{2}$ and y = $\frac{\sqrt{3}}{2}$ the matrix becomes:
+\[
+\begin{bmatrix}
+10 & 4 \\
+4 & 10
+\end{bmatrix} 
+\Rightarrow \lambda_1 = 30 - 2 \sqrt{85}, \lambda_1 = 9 -\srt{13}.
+\]
+This is inconclusive. For the point  ddd
+\\
+EIND VOORBEELD AANVULLEN\\
+\\
 
 \subsection{Newton's method with two or more variables}
 \label{Newton2}
 
-Say we have function $f(x,y)$ of 2 variables.\\
+The main principles of Newton's method with one variable apply to Newton's method with two or more variables.
+Say we have function $f(x,y)$ (containing 2 variables).\\
 
 Then here we have it's Hessian matrix:
 \[
@@ -244,6 +255,7 @@ If the gradient has value (0,0) at point (x,y) then:
 \begin{itemize}
     \item If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum
     \item If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum
+    \item If one of the eigenvalues of $H_f$ at (x,y) are zero, it's a saddle point
     \item In other cases, it's inconclusive
 \end{itemize}
 
@@ -261,17 +273,12 @@ f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
 
 
 \begin{figure}[htbp]
-     \begin{minipage}{0.55\textwidth}
-	    \includegraphics[width=7.5cm,keepaspectratio]{images/zadelpunt.png}
-    	\caption{The red arrow denotes a saddle point}
-    	\label{SaddlePoint}
-	\end{minipage}
-    \hfill
     \begin{minipage}{0.6\textwidth}
 	    \includegraphics[width=7.5cm,keepaspectratio]{images/3D_plot.png}
     \caption{3D surface of $f(x,y)$}
     \label{3Dsurface}
     \end{minipage}
+    \hfill
 \end{figure}
 
 
