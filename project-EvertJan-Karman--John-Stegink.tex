@@ -24,30 +24,58 @@ The basis of a machine learning algorithm that it tries to predict the right out
 	Using the Hessian Matrix finds the minimum in far less iterations than using gradient descent. The problem of using Hessian Matrices is that calculating a Hessian Matrix is much more complicated and time consuming than using just the derivative as is done using gradient descent.
 
 \section{Preliminaries}
+The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning. The derivatives of multi variable functions are not mentioned. $ \frac{\partial^2 f}{\partial x \partial y}$ denotes the partial derivative of function $(f(x,y)$ with regard to $y$ en then to $x$.\\
 
-\subsection{Notation}
-Used notation:
-\begin{itemize}
-  \item Multivariable derivates $\delta$ 
-\end{itemize}
-
-\subsection{Concepts}
-\subsection{Techniques}
+The techniques used and explained in this report are:
 \begin{itemize}
   \item 
-    Calculating derivative
+    Gradient decent with one variable: $x_{k+1} = x_k - f'(x_k) \cdot \alpha$
   \item 
-    Calculating second derivatie
+    Newton's method with one variable: $x_{k+1} = x_k - (f(x_k) / f'(x_k))$
   \item 
-    Computing eigen values
-
+    Derivates of multi variable functions: $\frac{\partial f}{\partial x} = f_x(x, y) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta x}$
+  \item 
+  	Hessian matrix: $\mathbf{H}_f =
+\begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} &
+\frac{\partial^2 f}{\partial x_1 \partial x_2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} &
+\frac{\partial^2 f}{\partial x_2^2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\\
+\vdots & \vdots & \ddots & \vdots \\
+\\
+\frac{\partial^2 f}{\partial x_n \partial x_1} &
+\frac{\partial^2 f}{\partial x_n \partial x_2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}$
 \end{itemize}
 
-\subsection{Problems}
-\subsubsection{Problem 1}
-Maken van een op hessian matrix op basis van een functie
-\subsubsection{Problem 2}
-Text\ldots
+\\
+\\
+After reading the report, please solve the following problems:\\
+\textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
+\\
+\textbf{Answer 1}: The Hessian matrix becomes $H = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{bmatrix}
+= \begin{bmatrix}
+6x & 2 \\
+2 & 6y
+\end{bmatrix}$ The values for $x=1, y=2$ are $H = \begin{bmatrix}
+12 & 2 \\
+2 & 12
+\end{bmatrix}$
+\\
+\textbf{Question 2}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
+\\
+\textbf{Answer 2}: The Hessian matrix becomes $H = \begin{bmatrix}
 
 
 \section{Methods}
@@ -134,6 +162,7 @@ With a function $f(x, y)$ of more variables, we can determine the gradient:
 \[
 \nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
 \]
+
 The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
 \[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
 
@@ -152,6 +181,26 @@ H_f(x,y) = \left[
 \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
 \end{matrix}\right]
 \]
+Generally a Hessian Matrix has the form: $\mathbf{H}_f =
+\begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} &
+\frac{\partial^2 f}{\partial x_1 \partial x_2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} &
+\frac{\partial^2 f}{\partial x_2^2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\\
+\vdots & \vdots & \ddots & \vdots \\
+\\
+\frac{\partial^2 f}{\partial x_n \partial x_1} &
+\frac{\partial^2 f}{\partial x_n \partial x_2} &
+\cdots &
+\frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}$
+
 
 The Hessian matrix is a symmetric matrix, because of Clairaut’s Theorem. This theorem states that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$.
 
@@ -159,7 +208,6 @@ With Hessian matrix local extremes of a function can be found. It helps to ident
 
 The lineair algebra part of Hessian matrices is not in the scope of this report. If you want to to have a thourough explanation, \cite{nocedal2006numerical} is a good reference. 
 Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. A often used algorithm that uses an approximation is BFGS.
-
 \\
 
 \subsection{Newton's method with two or more variables}
@@ -171,10 +219,10 @@ Say we have function $f(x,y)$ (containing 2 variables).\\
 Then here we have it's Hessian matrix:
 \[
 H_f(x,y) =
-\begin{pmatrix}
+\left[\begin{matrix}
 \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\[1em]
 \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
-\end{pmatrix}.
+\end{matrix}\right]
 \]
 Now at a given point (x,y) we'll calculate it's eigenvalues $\lambda_1, \lambda_2, \ldots$\\
 (A 2 by 2 matrix would have at most two eigenvalues)\\
