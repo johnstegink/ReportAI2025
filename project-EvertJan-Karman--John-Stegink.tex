@@ -24,17 +24,11 @@ The basis of a machine learning algorithm that it tries to predict the right out
 	Using the Hessian Matrix finds the minimum in far less iterations than using gradient descent. The problem of using Hessian Matrices is that calculating a Hessian Matrix is much more complicated and time consuming than using just the derivative as is done using gradient descent.
 
 \section{Preliminaries}
-The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning. The derivatives of multi variable functions are not mentioned. $ \frac{\partial^2 f}{\partial x \partial y}$ denotes the partial derivative of function $(f(x,y)$ with regard to $y$ en then to $x$.\\
-The techniques used and explained in this report are:
-\begin{itemize}
-  \item 
-    Gradient decent with one variable: $x_{k+1} = x_k - f'(x_k) \cdot \alpha$
-  \item 
-    Newton's method with one variable: $x_{k+1} = x_k - (f(x_k) / f'(x_k))$
-  \item 
-    Derivates of multi variable functions: $\frac{\partial f}{\partial x} = f_x(x, y) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta x}$
-  \item 
-  	Hessian matrix: $\mathbf{H}_f =
+The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning.\\
+$\frac{\partial^2 f}{\partial x \partial y}$ denotes the second partial derivative of function $(f(x,y)$ with regard to $y$ en then to $x$.\\
+Notation of Hessian matrix with second partial derivatives:
+\[
+\mathbf{H}_f =
 \begin{bmatrix}
 \frac{\partial^2 f}{\partial x_1^2} &
 \frac{\partial^2 f}{\partial x_1 \partial x_2} &
@@ -52,8 +46,8 @@ The techniques used and explained in this report are:
 \frac{\partial^2 f}{\partial x_n \partial x_2} &
 \cdots &
 \frac{\partial^2 f}{\partial x_n^2}
-\end{bmatrix}$
-\end{itemize}
+\end{bmatrix}
+\]
 
 After reading the report, please solve the following problems:\\
 \textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.

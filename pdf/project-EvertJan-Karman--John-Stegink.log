@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  11 NOV 2025 14:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  11 NOV 2025 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,90 +395,153 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+LaTeX Warning: Reference `GradientDescent1' on page 1 undefined on input line 2
+0.
+
+
+LaTeX Warning: Reference `GradientDescent2' on page 1 undefined on input line 2
+0.
+
+
+LaTeX Warning: Reference `HessianMatricesSub' on page 1 undefined on input line
+ 20.
+
+
+LaTeX Warning: Reference `Newton1' on page 1 undefined on input line 20.
+
+
+LaTeX Warning: Reference `Newton2' on page 1 undefined on input line 20.
+
+[1
 
 {C:/Users/Evert Jan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 81--86
+
+LaTeX Warning: Reference `metaGradientDescent' on page 2 undefined on input lin
+e 75.
+
+
+LaTeX Warning: Reference `contfunctionR' on page 2 undefined on input line 77.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--80
 
  []
 
 [2]
 
-LaTeX Warning: Citation `NetwtonsMethod' on page 3 undefined on input line 95.
+LaTeX Warning: Reference `contfunctionR' on page 3 undefined on input line 82.
 
-<images/fx_example_01.png, id=117, 317.38576pt x 211.38976pt>
+
+LaTeX Warning: Citation `NetwtonsMethod' on page 3 undefined on input line 89.
+
+<images/fx_example_01.png, id=36, 317.38576pt x 211.38976pt>
 File: images/fx_example_01.png Graphic file (type png)
 <use images/fx_example_01.png>
-Package pdftex.def Info: images/fx_example_01.png  used on input line 106.
+Package pdftex.def Info: images/fx_example_01.png  used on input line 100.
 (pdftex.def)             Requested size: 142.26378pt x 94.75356pt.
-<images/fx_example_02.png, id=119, 317.38576pt x 211.38976pt>
+<images/fx_example_02.png, id=38, 317.38576pt x 211.38976pt>
 File: images/fx_example_02.png Graphic file (type png)
 <use images/fx_example_02.png>
-Package pdftex.def Info: images/fx_example_02.png  used on input line 112.
+Package pdftex.def Info: images/fx_example_02.png  used on input line 106.
 (pdftex.def)             Requested size: 142.26378pt x 94.75356pt.
-[3 <./images/fx_example_01.png> <./images/fx_example_02.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 129--135
+
+LaTeX Warning: Reference `NewtonMethodFig' on page 3 undefined on input line 12
+4.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--129
 
  []
 
+[3 <./images/fx_example_01.png> <./images/fx_example_02.png>]
+
+LaTeX Warning: Reference `3Dsurface' on page 4 undefined on input line 132.
+
 
 LaTeX Warning: Citation `calcworkshopcom2022' on page 4 undefined on input line
- 139.
+ 133.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--157
+LaTeX Warning: Reference `GradientDescent1' on page 4 undefined on input line 1
+45.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--151
 
  []
 
 [4]
 
+LaTeX Warning: Reference `SaddlePoint' on page 5 undefined on input line 187.
+
+
+LaTeX Warning: Reference `Newton2' on page 5 undefined on input line 187.
+
+
 LaTeX Warning: Citation `nocedal2006numerical' on page 5 undefined on input lin
-e 194.
+e 188.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 208--211
+Underfull \hbox (badness 10000) in paragraph at lines 202--205
 
  []
 
-<images/zadelpunt.png, id=149, 1188.44pt x 883.3pt>
+
+LaTeX Warning: Reference `3Dsurface' on page 6 undefined on input line 217.
+
+<images/zadelpunt.png, id=64, 1188.44pt x 883.3pt>
 File: images/zadelpunt.png Graphic file (type png)
 <use images/zadelpunt.png>
-Package pdftex.def Info: images/zadelpunt.png  used on input line 229.
+Package pdftex.def Info: images/zadelpunt.png  used on input line 223.
 (pdftex.def)             Requested size: 184.9429pt x 137.4492pt.
+
+Overfull \hbox (17.644pt too wide) in paragraph at lines 223--224
+[][] 
+ []
+
+<images/3D_plot.png, id=65, 294.1389pt x 303.2931pt>
+File: images/3D_plot.png Graphic file (type png)
+<use images/3D_plot.png>
+Package pdftex.def Info: images/3D_plot.png  used on input line 229.
+(pdftex.def)             Requested size: 184.9429pt x 190.70543pt.
 
 Overfull \hbox (17.644pt too wide) in paragraph at lines 229--230
 [][] 
  []
 
-<images/3D_plot.png, id=150, 294.1389pt x 303.2931pt>
-File: images/3D_plot.png Graphic file (type png)
-<use images/3D_plot.png>
-Package pdftex.def Info: images/3D_plot.png  used on input line 235.
-(pdftex.def)             Requested size: 184.9429pt x 190.70543pt.
-
-Overfull \hbox (17.644pt too wide) in paragraph at lines 235--236
-[][] 
- []
-
 [6 <./images/zadelpunt.png (PNG copy)> <./images/3D_plot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 250--251
+
+LaTeX Warning: Reference `gradientDescentPython' on page 7 undefined on input l
+ine 240.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 
-Overfull \hbox (16.44127pt too wide) in paragraph at lines 272--272
+LaTeX Warning: Reference `NewtonPython' on page 7 undefined on input line 258.
+
+
+LaTeX Warning: Reference `NewtonPython2' on page 7 undefined on input line 258.
+
+
+
+Overfull \hbox (16.44127pt too wide) in paragraph at lines 266--266
 []\OT1/cmtt/m/n/9 Gradient Descent from (3.2,3.2) with learning rate 0.01 takes
  109 iterations to reach (4,4).[] 
  []
 
 
-Overfull \hbox (11.71632pt too wide) in paragraph at lines 272--272
+Overfull \hbox (11.71632pt too wide) in paragraph at lines 266--266
 []\OT1/cmtt/m/n/9 Gradient Descent from (3.2,3.2) with learning rate 0.05 takes
  27 iterations to reach (4,4).[] 
  []
 
 
-Overfull \hbox (7.14922pt too wide) in paragraph at lines 275--278
+Overfull \hbox (7.14922pt too wide) in paragraph at lines 269--272
 []$\OT1/cmtt/m/n/10.95 https : / / github . com / evert823 / ejk _ work _ ib370
 2 / blob / main / dogradientdescent . py$[]
  []
@@ -486,18 +549,18 @@ Overfull \hbox (7.14922pt too wide) in paragraph at lines 275--278
 [7]
 No file project-EvertJan-Karman--John-Stegink.bbl.
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--303
+Underfull \hbox (badness 10000) in paragraph at lines 294--297
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--303
+Underfull \hbox (badness 10000) in paragraph at lines 294--297
 
  []
 
 
-LaTeX Warning: Citation `Wikipedia2025_gd' on page 8 undefined on input line 30
-4.
+LaTeX Warning: Citation `Wikipedia2025_gd' on page 8 undefined on input line 29
+8.
 
 [8] [9]
 (C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project-EvertJan-Karman--
@@ -510,38 +573,47 @@ L3 programming layer <2024-01-04>
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `project-EvertJan-Karman--John-Stegink.out' h
-as not changed.
-(rerunfilecheck)             Checksum: 9850764044FDAB04B972F10AB98BD73E;3518.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `project-EvertJan-Karman--John-Stegink.out
+' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `project-EvertJan-Karman--John-Stegi
+nk.out':
+(rerunfilecheck)             Before: 9814C2D956916ADB9290ECA4E25C967A;103
+(rerunfilecheck)             After:  9850764044FDAB04B972F10AB98BD73E;3518.
  ) 
 Here is how much of TeX's memory you used:
- 10276 strings out of 474486
- 156752 string characters out of 5753555
- 1942542 words of memory out of 5000000
- 32389 multiletter control sequences out of 15000+600000
- 569885 words of font info for 81 fonts, out of 8000000 for 9000
+ 10252 strings out of 474486
+ 156384 string characters out of 5753555
+ 1940542 words of memory out of 5000000
+ 32366 multiletter control sequences out of 15000+600000
+ 569544 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,10n,67p,1482b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Evert Jan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
-tcrm1095.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program 
-Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.
-pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Progr
-am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Progra
-m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files/MiKTeX/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
+i8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pr
+ogram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9
+.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Pro
+gram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/a
+msfonts/symbols/msbm10.pfb>
 Output written on "C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project
--EvertJan-Karman--John-Stegink.pdf" (9 pages, 1162131 bytes).
+-EvertJan-Karman--John-Stegink.pdf" (9 pages, 1150861 bytes).
 PDF statistics:
- 262 PDF objects out of 1000 (max. 8388607)
+ 183 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
- 181 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
