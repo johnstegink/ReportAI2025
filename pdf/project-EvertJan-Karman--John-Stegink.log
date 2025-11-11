@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  11 NOV 2025 12:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  11 NOV 2025 14:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -377,13 +377,17 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring OFF on input line 16.
+
+(C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project-EvertJan-Karman--
+John-Stegink.out)
+(C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project-EvertJan-Karman--
+John-Stegink.out)
 \@outlinefile=\write3
 \openout3 = `project-EvertJan-Karman--John-Stegink.out'.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 18.
 
-
-(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
+ (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
@@ -391,75 +395,35 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-Package hyperref Warning: Suppressing link with empty target on input line 20.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 20.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 20.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 20.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 20.
-
-[1
+) [1
 
 {C:/Users/Evert Jan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-
-LaTeX Warning: Reference `metaGradientDescent' on page 2 undefined on input lin
-e 81.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 83.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 81--86
 
  []
 
 [2]
 
-Package hyperref Warning: Suppressing link with empty target on input line 88.
-
-
 LaTeX Warning: Citation `NetwtonsMethod' on page 3 undefined on input line 95.
 
-<images/fx_example_01.png, id=33, 317.38576pt x 211.38976pt>
+<images/fx_example_01.png, id=117, 317.38576pt x 211.38976pt>
 File: images/fx_example_01.png Graphic file (type png)
 <use images/fx_example_01.png>
 Package pdftex.def Info: images/fx_example_01.png  used on input line 106.
 (pdftex.def)             Requested size: 142.26378pt x 94.75356pt.
-<images/fx_example_02.png, id=35, 317.38576pt x 211.38976pt>
+<images/fx_example_02.png, id=119, 317.38576pt x 211.38976pt>
 File: images/fx_example_02.png Graphic file (type png)
 <use images/fx_example_02.png>
 Package pdftex.def Info: images/fx_example_02.png  used on input line 112.
 (pdftex.def)             Requested size: 142.26378pt x 94.75356pt.
 [3 <./images/fx_example_01.png> <./images/fx_example_02.png>]
-
-Package hyperref Warning: Suppressing link with empty target on input line 130.
-
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 129--135
 
  []
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 138.
-
-
-
 LaTeX Warning: Citation `calcworkshopcom2022' on page 4 undefined on input line
  139.
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 151.
-
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 155--157
@@ -467,14 +431,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 155--157
  []
 
 [4]
-
-Package hyperref Warning: Suppressing link with empty target on input line 193.
-
-
-
-Package hyperref Warning: Suppressing link with empty target on input line 193.
-
-
 
 LaTeX Warning: Citation `nocedal2006numerical' on page 5 undefined on input lin
 e 194.
@@ -484,11 +440,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 208--211
 
  []
 
-
-Package hyperref Warning: Suppressing link with empty target on input line 223.
-
-
-<images/zadelpunt.png, id=62, 1188.44pt x 883.3pt>
+<images/zadelpunt.png, id=149, 1188.44pt x 883.3pt>
 File: images/zadelpunt.png Graphic file (type png)
 <use images/zadelpunt.png>
 Package pdftex.def Info: images/zadelpunt.png  used on input line 229.
@@ -498,7 +450,7 @@ Overfull \hbox (17.644pt too wide) in paragraph at lines 229--230
 [][] 
  []
 
-<images/3D_plot.png, id=63, 294.1389pt x 303.2931pt>
+<images/3D_plot.png, id=150, 294.1389pt x 303.2931pt>
 File: images/3D_plot.png Graphic file (type png)
 <use images/3D_plot.png>
 Package pdftex.def Info: images/3D_plot.png  used on input line 235.
@@ -509,21 +461,9 @@ Overfull \hbox (17.644pt too wide) in paragraph at lines 235--236
  []
 
 [6 <./images/zadelpunt.png (PNG copy)> <./images/3D_plot.png>]
-
-LaTeX Warning: Reference `gradientDescentPython' on page 7 undefined on input l
-ine 246.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 250--251
 
  []
-
-
-LaTeX Warning: Reference `NewtonPython' on page 7 undefined on input line 264.
-
-
-LaTeX Warning: Reference `NewtonPython2' on page 7 undefined on input line 264.
-
 
 
 Overfull \hbox (16.44127pt too wide) in paragraph at lines 272--272
@@ -570,25 +510,15 @@ L3 programming layer <2024-01-04>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `project-EvertJan-Karman--John-Stegink.out
-' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `project-EvertJan-Karman--John-Stegi
-nk.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  9850764044FDAB04B972F10AB98BD73E;3518.
+Package rerunfilecheck Info: File `project-EvertJan-Karman--John-Stegink.out' h
+as not changed.
+(rerunfilecheck)             Checksum: 9850764044FDAB04B972F10AB98BD73E;3518.
  ) 
 Here is how much of TeX's memory you used:
- 10250 strings out of 474486
- 156038 string characters out of 5753555
+ 10276 strings out of 474486
+ 156752 string characters out of 5753555
  1942542 words of memory out of 5000000
- 32367 multiletter control sequences out of 15000+600000
+ 32389 multiletter control sequences out of 15000+600000
  569885 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,10n,67p,1482b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -609,9 +539,9 @@ m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files/MiKTeX/fonts/type
 1/public/amsfonts/symbols/msbm10.pfb>
 Output written on "C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project
--EvertJan-Karman--John-Stegink.pdf" (9 pages, 1151756 bytes).
+-EvertJan-Karman--John-Stegink.pdf" (9 pages, 1162131 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
+ 262 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 181 words of extra memory for PDF output out of 10000 (max. 10000000)
 
