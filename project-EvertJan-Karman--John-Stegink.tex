@@ -214,12 +214,26 @@ In Newton's method generalized to more than one variables, the formula for the n
 
 \subsection{Connection between EVD and SVD}
 This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
-EVD rewrites a matrix $A$ into seperate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
-SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Simga$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $V$ on uses
+EVD rewrites a matrix $A$ into separate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
+SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Sigma$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $U$ one uses:
 \[
-A^TA = {(U \Sigma V^T)}^T(U \Sigma V^T) = V \Sigma^T U^T  
+AA^T = \left( U \Sigma V^T \right) \left( U \Sigma V^T \right)^T = U \Sigma V^T V \Sigma^T U^T = U \Sigma^2 U^T\]
+Because $A.A^T$ is symmetrical the eigen decomposition becomes: $ A.A^T = Q \Lambda Q^T$ when substituting $\Lambda$ for $\Sigma^2$ and because $\Sigma$. When calculating values voor $\Sigma$ one has to take te square root of the values of $\Lambda$. This can easily be done because $\Lambda$ is a diagonal matrix.\\
+A similar computation is for matrix $V$
+\[
+A^T A = \left( U \Sigma V^T \right)^T \left( U \Sigma V^T \right) = V \Sigma^T U^T U \Sigma V^T = V \Sigma^2 V^T\]
+If a matrix $S$ is square, symmetric, and positive semi-definite, meaning $A.A^T = A^t .A$ then both $U$ and $V$ from SVD are the same (see previous two equations). The SVD can then be written as 
 
+\[
+S = U \Sigma^2 U^T
+ \text{ or } S = V \Sigma^2 V^T
+ \]
+this is the same. And because U is orthogonal (definition of SVD), we the transpose is equal to the inverse. Meaning we have the following formula:
+\[
+S = U {\Sigma'} U^{-1}
 \]
+This is the eigen value decomposition, where $\Sigma'$ = $\Sigma^2}.
+
 
 \section{Numerical Examples}
 We will look at this function (fig \ref{3Dsurface}):
