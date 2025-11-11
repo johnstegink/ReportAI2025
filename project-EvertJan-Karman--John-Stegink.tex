@@ -213,6 +213,15 @@ In Newton's method generalized to more than one variables, the formula for the n
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
 \]
 
+\subsection{Connection between EVD and SVD}
+This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
+EVD rewrites a matrix $A$ into seperate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
+SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Simga$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $V$ on uses
+\[
+A^TA = {(U \Sigma V^T)}^T(U \Sigma V^T) = V \Sigma^T U^T  
+
+\]
+
 \section{Numerical Examples}
 We will look at this function (fig \ref{3Dsurface}):
 \[
