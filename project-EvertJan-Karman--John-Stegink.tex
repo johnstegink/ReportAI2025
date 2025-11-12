@@ -75,22 +75,23 @@ The purpose of using gradient descent is to find a local or global minimum of a 
 \\
 Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}).This function is differentiable with derivative $f'(x)$ and has a starting point $x_0$.
 Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from $x_0$, where $\alpha$ is called the learning rate. This is equal to walking the path in the steepest descent by $\alpha$ meters in the metaphore. The value of $\alpha$  will be chosen before starting the procedure. Usual values for $\alpha$ are $0.01$ or $0.05$.\\
-We iterate this, so that we get an \textbf{array??} which is recursively defined as:\\
+We iterate this, so that we get a \textbf{sequence} which is recursively defined as:\\
 \[x_{k+1} = x_k - f'(x_k) \cdot \alpha\]
 
-This array will converge to the minimum of $f$ (fig \ref{contfunctionR}).
+This sequence will converge to the minimum of $f$ (fig \ref{contfunctionR}).
 The pitchfalls here are, that the procedure may end in a local minimum, while $f$ has a stronger minimum elsewhere.\\
-Or with a less than optimal choice for the learning rate, the array could even diverge.
+Or with a less than optimal choice for the learning rate, the sequence could even diverge.
 
 
 \subsection{Newton's method with one variable}
 \label{Newton1}
-Newton's method finds the zeroes of a function $f$, in cases where solving the equation is not possible. It works by iterating through the following steps (inspired by \cite{NetwtonsMethod}:
+Newton's method finds the zeroes of a function $f$, in cases where it is more challenging or expensive, to find the minimum directly by solving an equation.
+It works by iterating through the following steps (inspired by \cite{NetwtonsMethod}:
 \begin{enumerate}
   \item Start at a random point on the curve.
   \item Determine the tangent line at that point (using the derivative).
   \item Determine the point where the tangent line hits the X-axis
-\item Continue with step 2 until the value does not change significantly anymore. 
+  \item From the point found in previous step, continue with step, 2 until the value does not change significantly anymore. 
 \end{enumerate}
 
 
@@ -108,15 +109,12 @@ Newton's method finds the zeroes of a function $f$, in cases where solving the e
 	\end{minipage}
 \end{figure}
 
-To state it more mathematically: find the value $x_0$ where the tangent line intersects with the x-axis. That will be $x_1$.
-By iterating this procedure we get an array $(x_k)_{k=0,1,\ldots}$.
-From the geometrical aspect of the procedure, we can give a formula between $x_{k+1}$ and $x_k$:
-\[
-x_{k+1} = x_k - (f(x_k) / f'(x_k))
-\]
-(that is for finding the zero of $f$)
-The idea is that the array $(x_k)$ converges to the value of x where $f(x) = 0$.
-The goal is not to find the point where $f$ crosses the x-axis, but to find an minimum for $f$. This means finding the point where the derivative of $f$ is zero. This can be accomplished with Newton's method by substituting $f'$ for $f$ and $f''$ for $f'$.
+To state it more mathematically: starting from $x_0$ find the value $x_1$ where the tangent line intersects with the x-axis.
+By iterating this procedure we get an sequence $(x_k)_{k=0,1,\ldots}$.
+From the geometrical aspect of the procedure, we can give a formula between $x_{k+1}$ and $x_k$.
+The idea is that the sequence $(x_k)$ converges to the value of x where $f(x) = 0$.\\
+Below formula takes into account that we want to find the \textit{minimum of a function f}, so we are finding a \textit{zero of f'}.
+So after substituting $f'$ for $f$ and $f''$ for $f'$:
 \[
 x_{k+1} = x_k - (f'(x_k) / f''(x_k))
 \]
@@ -146,11 +144,12 @@ With a function $f(x, y)$ of more variables, we can determine the gradient:
 \[
 \nabla f(x,y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)
 \]
-The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our array  $(x_k,y_k)$ becomes:\\
+The method is the same, but where we took the derivative for one variable, we will now take the gradient, and the recursive definition of our sequence  $(x_k,y_k)$ becomes:\\
 \[(x_{k+1},y_{k+1}) = (x_k,y_k) - \nabla f(x,y) \cdot \alpha\]
 \subsection{Hessian matrix}
 \label{HessianMatricesSub}
-The second derivative of a function tells something about the curvature of a function in a certain point. A function is convex at a point when the second derivative is positive, and concave if it is negative. When the value of the second derivative is zero the point is an inflection point, a point at which te curvature changes sign. This is possibly a minimum or maximum of the function.\\
+The second derivative of a function tells something about the curvature of a function in a certain point. A function is convex at a point when the second derivative is positive, and concave if it is negative.
+When the value of the second derivative is zero, the point may be an inflection point, rather than a minimum or maximum of the function.\\
 A Hessian matrix is a squared matrix containing all second derivatives of a multi valued function.
 Say we have function $f(x,y)$ of 2 variables. Then we get a square matrix having te following format:
 \[
@@ -181,11 +180,16 @@ Generally a Hessian Matrix has the form: $\mathbf{H}_f =
 \end{bmatrix}$
 
 
-The Hessian matrix is a symmetric matrix, because of Clairaut’s Theorem. This theorem states that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$.
+The Hessian matrix is a symmetric matrix most of the times.
+(Because there is Clairaut’s Theorem that states, that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ under specific conditions which ar usually true when we have smooth functions.)
 
-With Hessian matrix local extremes of a function can be found. It helps to identify saddle points, local minima and local maxima. A saddle point (figure \ref{SaddlePoint}) is a function that does neither contain a local maximum or local minimum. From this point a function in some directions (using a certain set of variables) is a maximum and in some points a minimum. The type of extreme can be found by calculating the eigenvalues of the Hessian matrix (section \ref{Newton2}).\\
-The lineair algebra part of Hessian matrices is not in the scope of this report. If you want to to have a thourough explanation, \cite{nocedal2006numerical} is a good reference. 
-Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can be several billions). The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used. An often used algorithm that uses an approximation is BFGS.
+With Hessian matrix local minima, maxima and stationary points of a function can be found. It helps to identify saddle points, local minima and local maxima.
+A saddle point (figure \ref{SaddlePoint}) is a stationary point that is neither a local maximum nor a local minimum.
+From this point the function looks like a minimum in some directions and a maximum in other directions.
+The type of extreme can be found by calculating the eigenvalues of the Hessian matrix (section \ref{Newton2}).\\
+Hessian matrices can be become quite large. The matrix for a function with $n$ different variables the matrix will have the size of $n \times n$ (in modern machine learning models the value of $n$ can become significantly large).
+The size of the matrix to be calculated and stored in memory will have a size of order $n^2$. For such situations approximations of the Hessian Matrix are being used.
+An often used algorithm that uses an approximation is BFGS.\\
 
 \subsection{Newton's method with two or more variables}
 \label{Newton2}
@@ -205,8 +209,7 @@ Now at a given point (x,y) we'll calculate it's eigenvalues $\lambda_1, \lambda_
 If the gradient has value (0,0) at point (x,y) then:\\
 - If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum\\
 - If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum\\
-- If one of the eigenvalues of $H_f$ at (x,y) are zero, it's a saddle point\\
-- In other cases, it's inconclusive\\
+- If one of the eigenvalues of $H_f$ at (x,y) are zero, or we have mixed signs, it's inconclusive or we may have a saddle point\\
 In Newton's method generalized to more than one variables, the formula for the next point is:
 \[
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
