@@ -117,7 +117,8 @@ correlate, meaning to what extent one feature increases when another feature inc
 \section{Methods}
 \subsection{Gradient descent with one variable}
 \label{GradientDescent1}
-The purpose of using gradient descent is to find a local or global minimum of a differentiable function by iteratively adjusting the parameters in the direction of the steepest descent. This a mouthful. \\It can be clarified by the following metaphor: 	When you want to find the path from the top to the foot of the mountain in the mist. You walk a few meters down the path with the steepest descent. Then you determine the next path with the steepest descent\footnote{https://en.wikipedia.org/wiki/Gradient\_descent}. Appendix \ref{metaGradientDescent} contains a more detailed version of this metaphor.
+The purpose of using gradient descent is to find a local or global minimum of a differentiable function by iteratively adjusting the parameters in the direction of the steepest descent. This a mouthful. \\It can be clarified by the following metaphor: 	When you want to find the path from the top to the foot of the mountain in the mist. You walk a few meters down the path with the steepest descent. Then you determine the next path with the steepest descent\footnote{https://en.wikipedia.org/wiki/Gradient\_descent}.
+Appendix \ref{metaGradientDescent} contains a more detailed version of this metaphor.
 \\
 Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}).This function is differentiable with derivative $f'(x)$ and has a starting point $x_0$.
 Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from $x_0$, where $\alpha$ is called the learning rate. This is equal to walking the path in the steepest descent by $\alpha$ meters in the metaphore. The value of $\alpha$  will be chosen before starting the procedure. Usual values for $\alpha$ are $0.01$ or $0.05$.\\
@@ -264,7 +265,13 @@ In Newton's method generalized to more than one variables, the formula for the n
 \subsection{SVD in PCA}
 The aim of this section is not to provide an explanation about Principle Component Analysis in general.
 The aim is to zoom in to the possibility, at a certain point, to apply SVD in PCA, instead of the more widely used definition of PCA based on EVD.
-The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.
+The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.\\
+The explanation that follows now will align with the diagram in fig \ref{PCADiagram}, that shows the same steps, and how they relate: \\
+\begin{figure}[htbp]
+    \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
+    \caption{PCA overview and steps }
+    \label{PCADiagram}
+\end{figure}
 
 We start with an mxn matrix A, feature by observation, so there are m observations and n features.
 We will mean-center it and call it $A_{mean-centered}$ or $Amc$.
@@ -315,7 +322,6 @@ So we have:
 \]
 
 This was the point where SVD can be used for PCA, from here PCA proceeds as usual.\\
-Below fig \ref{PCADiagram} there is a diagram that shows the steps and how they relate: \\
 
 We have also created a small python program that does the following:
 \begin{itemize}
@@ -324,16 +330,9 @@ We have also created a small python program that does the following:
     \item Show that EVD on the covariance matrix and SVD on the covariance matrix produces the same values
     \item Show that SVD on the mean-centered data produces the same values apart from scaling
 \end{itemize}
+Appendix \ref{PCACompare} shows the printed output of a testcase.
 Link to this python program:
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/pca_evd_svd.py}
-
-
-\begin{figure}[htbp]
-    \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
-    \caption{PCA overview and steps }
-    \label{PCADiagram}
-\end{figure}
-
 
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
@@ -414,7 +413,9 @@ Gradient Descent from (3.2,3.2) with learning rate 0.05 takes 27 iterations to r
 
 The python code can be found on \\
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/dogradientdescent.py}
-\url{https://github.com/evert823/ejk_work_ib3702/blob/main/donewton.py}
+\url{https://github.com/evert823/ejk_work_ib3702/blob/main/donewton.py}\\
+
+Appendix \ref{PCACompare} shows the printed output of a testcase which is also a numerical example of PCA, SVD, EVD.
 
 \section{Collaboration}
 
@@ -504,6 +505,52 @@ Hessian from last iteration: [[ 4.26666750e+00 -2.45347276e-13]
 Eigenvalues of Hessian: [4.2666675 4.2666675]
 \end{verbatim} 
 }
+
+\subsection{PCA python output of compare EVD and SVD}
+\label{PCACompare}
+{\footnotesize
+\begin{verbatim}
+Our testmatrix
+[[   2.7245     3.1032   -13.9551    92.95328]
+ [   1.4978     0.8653     1.2219    -1.96032]
+ [   6.1456     0.7784     0.3391    17.59555]
+ [   7.5821     1.2493     8.4127   -25.25591]
+ [   6.9963     6.0318    -7.4444    69.83275]
+ [  -3.6614   -10.5902    15.1286  -108.02222]
+ [ -11.2357    -1.449      3.7832   -58.16585]
+ [   7.8109     7.3721    -2.6598    45.06708]
+ [   4.0635     4.9214    11.2876   -50.55501]
+ [  11.3492     8.1348    -8.9687    93.79221]
+ [  -6.579     11.8026     6.0447   -47.79681]
+ [  -2.2184   -12.5477     4.6165   -42.89778]
+ [   8.8841    -6.2996    -2.7328    39.25451]
+ [  10.4308    11.6823    13.2762   -37.81649]
+ [   0.0127     3.4535    -0.8084     7.22638]]
+eigenvalues found with EVD on covariance matrix
+[[3657.04922556    0.            0.            0.        ]
+ [   0.           52.69561292    0.            0.        ]
+ [   0.            0.           30.81419239    0.        ]
+ [   0.            0.            0.           -0.        ]]
+Singular values found with SVD on covariance matrix
+[[3657.04922556    0.            0.            0.        ]
+ [   0.           52.69561292    0.            0.        ]
+ [   0.            0.           30.81419239    0.        ]
+ [   0.            0.            0.            0.        ]]
+Singular values found with SVD on mean-centered data
+[[226.27127338   0.           0.           0.        ]
+ [  0.          27.1613435    0.           0.        ]
+ [  0.           0.          20.77013947   0.        ]
+ [  0.           0.           0.           0.        ]]
+
+Now checking if both methods have produced the same values ...
+Checking values match i 0 s1 3657.049225564554 s2 3657.0492255645527
+Checking values match i 1 s1 52.69561291533943 s2 52.69561291533954
+Checking values match i 2 s1 30.814192386824338 s2 30.81419238682428
+Checking values match i 3 s1 2.3671877383930476e-30 s2 -2.1316282072803006e-14
+OK!
+\end{verbatim} 
+}
+
 
 
 \end{document}  
