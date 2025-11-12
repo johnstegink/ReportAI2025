@@ -301,27 +301,23 @@ Link to this python program:
 
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
-This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
-EVD rewrites a matrix $A$ into separate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
-SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Sigma$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $U$ one uses:
+This paragraph summarizes the relation between Eigenvalue Decomposition (EVD) and Singular Value Decomposition (SVD).\\
+For any matrix $A$, its SVD is $A = U \Sigma V^T$, where $\Sigma = \operatorname{diag}(\sigma_1,\ldots)$ contains the singular values $\sigma_i \ge 0$ (sorted). From this it follows that
 \[
-AA^T = \left( U \Sigma V^T \right) \left( U \Sigma V^T \right)^T = U \Sigma V^T V \Sigma^T U^T = U \Sigma^2 U^T\]
-Because $A.A^T$ is symmetrical the eigen decomposition becomes: $ A.A^T = Q \Lambda Q^T$ when substituting $\Lambda$ for $\Sigma^2$ and because $\Sigma$. When calculating values voor $\Sigma$ one has to take te square root of the values of $\Lambda$. This can easily be done because $\Lambda$ is a diagonal matrix.\\
-A similar computation is for matrix $V$
-\[
-A^T A = \left( U \Sigma V^T \right)^T \left( U \Sigma V^T \right) = V \Sigma^T U^T U \Sigma V^T = V \Sigma^2 V^T\]
-If a matrix $S$ is square, symmetric, and positive semi-definite, meaning $A.A^T = A^t .A$ then both $U$ and $V$ from SVD are the same (see previous two equations). The SVD can then be written as 
-
-\[
-S = U \Sigma^2 U^T
- \text{ or } S = V \Sigma^2 V^T
- \]
-this is the same. And because U is orthogonal (definition of SVD), we the transpose is equal to the inverse. Meaning we have the following formula:
-\[
-S = U {\Sigma'} U^{-1}
+A A^T = U \Sigma^2 U^T
+\qquad\text{and}\qquad
+A^T A = V \Sigma^2 V^T,
 \]
-This is the eigen value decomposition, where $\Sigma'$ = $\Sigma^2$.
-
+so the eigenvalues of $A A^T$ and $A^T A$ are the squared singular values of $A$.\\[0.3em]
+If $S$ is square, symmetric, and positive semidefinite (as a covariance matrix is), then its SVD coincides with its EVD:
+\[
+S = Q \Lambda Q^T \quad\text{with}\quad \Lambda \ge 0,\ \ U=V=Q,\ \ \Sigma=\Lambda.
+\]
+Hence, for a covariance matrix $C$, the singular values of $C$ equal its eigenvalues.\\[0.3em]
+If instead we apply SVD to the mean-centered data matrix $Amc$, then
+\[
+C = \tfrac{1}{m-1} Amc^T Amc \quad\Rightarrow\quad \text{eigenvalues}(C) = \frac{\sigma_i(Amc)^2}{m-1}.
+\]
 
 \section{Numerical Examples}
 We will look at this function (fig \ref{3Dsurface}):
