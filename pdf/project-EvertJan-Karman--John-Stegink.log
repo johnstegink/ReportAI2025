@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  12 NOV 2025 21:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  12 NOV 2025 21:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -413,12 +413,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 120--126
  []
 
 [3]
-<images/fx_example_01.png, id=132, 317.38576pt x 211.38976pt>
+<images/fx_example_01.png, id=136, 317.38576pt x 211.38976pt>
 File: images/fx_example_01.png Graphic file (type png)
 <use images/fx_example_01.png>
 Package pdftex.def Info: images/fx_example_01.png  used on input line 147.
 (pdftex.def)             Requested size: 142.26378pt x 94.75356pt.
-<images/fx_example_02.png, id=134, 317.38576pt x 211.38976pt>
+<images/fx_example_02.png, id=138, 317.38576pt x 211.38976pt>
 File: images/fx_example_02.png Graphic file (type png)
 <use images/fx_example_02.png>
 Package pdftex.def Info: images/fx_example_02.png  used on input line 153.
@@ -447,7 +447,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 252--255
 
  []
 
-<images/PCA_EVD_SVD.drawio.png, id=165, 377.61075pt x 307.74976pt>
+<images/PCA_EVD_SVD.drawio.png, id=169, 377.61075pt x 307.74976pt>
 File: images/PCA_EVD_SVD.drawio.png Graphic file (type png)
 <use images/PCA_EVD_SVD.drawio.png>
 Package pdftex.def Info: images/PCA_EVD_SVD.drawio.png  used on input line 271.
@@ -475,7 +475,7 @@ Overfull \hbox (2.65709pt too wide) in paragraph at lines 333--336
  []
 
 [9]
-<images/zadelpunt.png, id=188, 1188.44pt x 883.3pt>
+<images/zadelpunt.png, id=192, 1188.44pt x 883.3pt>
 File: images/zadelpunt.png Graphic file (type png)
 <use images/zadelpunt.png>
 Package pdftex.def Info: images/zadelpunt.png  used on input line 368.
@@ -485,7 +485,7 @@ Overfull \hbox (17.644pt too wide) in paragraph at lines 368--369
 [][] 
  []
 
-<images/3D_plot.png, id=189, 294.1389pt x 303.2931pt>
+<images/3D_plot.png, id=193, 294.1389pt x 303.2931pt>
 File: images/3D_plot.png Graphic file (type png)
 <use images/3D_plot.png>
 Package pdftex.def Info: images/3D_plot.png  used on input line 374.
@@ -523,21 +523,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 414--417
 
  []
 
-[11 <./images/zadelpunt.png (PNG copy)> <./images/3D_plot.png>]
+[11 <./images/zadelpunt.png (PNG copy)> <./images/3D_plot.png>] [12]
 No file project-EvertJan-Karman--John-Stegink.bbl.
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 456--459
+
+Underfull \hbox (badness 10000) in paragraph at lines 460--463
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 456--459
+Underfull \hbox (badness 10000) in paragraph at lines 460--463
 
  []
 
 
 LaTeX Warning: Citation `Wikipedia2025_gd' on page 13 undefined on input line 4
-60.
+64.
 
 [13] [14] [15]
 (C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project-EvertJan-Karman--
@@ -561,17 +561,17 @@ Package rerunfilecheck Warning: File `project-EvertJan-Karman--John-Stegink.out
 
 Package rerunfilecheck Info: Checksums for `project-EvertJan-Karman--John-Stegi
 nk.out':
-(rerunfilecheck)             Before: E9BF9F38205A39399327C10679BCBC17;4132
-(rerunfilecheck)             After:  4344FB4FA554E116606C7B08E47A25C1;4245.
+(rerunfilecheck)             Before: 4344FB4FA554E116606C7B08E47A25C1;4245
+(rerunfilecheck)             After:  0D05065C2B5A4A330E65272DC729EB44;4444.
  ) 
 Here is how much of TeX's memory you used:
- 10321 strings out of 474486
- 157433 string characters out of 5753555
- 1941542 words of memory out of 5000000
- 32412 multiletter control sequences out of 15000+600000
+ 10323 strings out of 474486
+ 157463 string characters out of 5753555
+ 1942542 words of memory out of 5000000
+ 32413 multiletter control sequences out of 15000+600000
  571903 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,10n,67p,1482b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,10n,67p,1482b,624s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Evert Jan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
 tcrm1095.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program 
@@ -591,9 +591,9 @@ ts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb
 onts/cm/cmtt9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/
 msbm10.pfb>
 Output written on "C:\Users\Evert Jan\Documents\GitHub\ReportAI2025\pdf\project
--EvertJan-Karman--John-Stegink.pdf" (15 pages, 1221465 bytes).
+-EvertJan-Karman--John-Stegink.pdf" (15 pages, 1222276 bytes).
 PDF statistics:
- 327 PDF objects out of 1000 (max. 8388607)
- 59 named destinations out of 1000 (max. 500000)
- 210 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 331 PDF objects out of 1000 (max. 8388607)
+ 60 named destinations out of 1000 (max. 500000)
+ 218 words of extra memory for PDF output out of 10000 (max. 10000000)
 
