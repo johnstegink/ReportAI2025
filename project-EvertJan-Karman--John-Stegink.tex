@@ -228,9 +228,9 @@ In Newton's method generalized to more than one variables, the formula for the n
 \subsection{SVD in PCA}
 The aim of this section is not to provide an explanation about Principle Component Analysis in general.
 The aim is to zoom in to the possibility, at a certain point, to apply SVD in PCA, instead of the more widely used definition of PCA based on EVD.
-The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.
+The explanation will be made clearer by a diagram of the process (figure \ref{PCADiagram}), that visualizes how the different steps and alternatives relate.
 
-We start with an mxn matrix A, feature by observation, so there are m observations and n features.
+We start with an $m \times n$ matrix A, feature by observation, so there are $m$ observations and $n$ features.
 We will mean-center it and call it $A_{mean-centered}$ or $Amc$.
 
 In the most common definition we will now create the covariance matrix, which is
@@ -267,8 +267,9 @@ On each of these we would take EVD. (Please note that $Amc^{T} \cdot Amc$ is alm
 covariance matrix but without scaling by $\frac{1}{m-1}$).
 
 The EVD produces eigenvalues $\lambda_{1}$ and $\lambda_{2}$ respectively
-which are of the same value.
-We have already noticed the difference in scaling between this step, and EVD from the covariance matrix.\\
+which have the same value.
+% de zin hieronder begrijp ik niet, misschien iets meer uitleg
+\textbf{!!!!!} We have already noticed the difference in scaling between this step, and EVD from the covariance matrix.\textbf{!!!!!}\\
 
 So we have:
 \[
@@ -292,7 +293,7 @@ Link to this python program:
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/pca_evd_svd.py}
 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
     \caption{PCA overview and steps }
     \label{PCADiagram}
