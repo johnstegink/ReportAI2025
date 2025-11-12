@@ -17,10 +17,12 @@
 \maketitle
 
 \section{Introduction}
-The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent (sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations.
+The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent
+(sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations.
 In this report we compare two methods, Gradient descent and Newton's method. For Newton's method the Hessian matrix with second partial derivatives is required.\\
 First a description of gradient descent and Newton's method will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables.\\
-Newton's method can find the minimum in far less iterations than Gradient descent. The problem of Newton's method, is that calculating a Hessian Matrix is much more expensive than using just the derivative, as is done with Gradient descent.
+Newton's method can find the minimum in far less iterations than Gradient descent. The problem of Newton's method, is that calculating a Hessian Matrix is much more expensive than using just the derivative, as is done with Gradient descent.\\
+\textbf{Next to this}, this report will cover the possibility of SVD in PCA, and the link between EVD and SVD (see abbreviations below).
 
 \section{Preliminaries}
 The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning.\\
@@ -47,6 +49,14 @@ Notation of Hessian matrix with second partial derivatives:
 \frac{\partial^2 f}{\partial x_n^2}
 \end{bmatrix}
 \]
+\\
+\textbf{Abbreviations}
+\begin{enumerate}
+  \item EVD Eigenvalue decomposition
+  \item PCA Principle Component Analysis
+  \item SVD Singular Value Decomposition
+\end{enumerate}
+
 
 After reading the report, please solve the following problems:\\
 \textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
@@ -86,7 +96,7 @@ Or with a less than optimal choice for the learning rate, the sequence could eve
 \subsection{Newton's method with one variable}
 \label{Newton1}
 Newton's method finds the zeroes of a function $f$, in cases where it is more challenging or expensive, to find the minimum directly by solving an equation.
-It works by iterating through the following steps (inspired by \cite{NetwtonsMethod}:
+It works by iterating through the following steps:
 \begin{enumerate}
   \item Start at a random point on the curve.
   \item Determine the tangent line at that point (using the derivative).
@@ -215,7 +225,82 @@ In Newton's method generalized to more than one variables, the formula for the n
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
 \]
 
+\subsection{SVD in PCA}
+The aim of this section is not to provide an explanation about Principle Component Analysis in general.
+The aim is to zoom in to the possibility, at a certain point, to apply SVD in PCA, instead of the more widely used definition of PCA based on EVD.
+The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.
+
+We start with an mxn matrix A, feature by observation, so there are m observations and n features.
+We will mean-center it and call it $A_{mean-centered}$ or $Amc$.
+
+In the most common definition we will now create the covariance matrix, which is
+\[
+A_{Cov} = \frac{Amc^{T} \cdot Amc}{m-1}
+\]
+Then we perform eigendecomposition (EVD) on this covariance matrix.
+The outcome is a set of eigenvalues which we shall call $\lambda_{3}$.
+
+{\small
+\fbox{
+\parbox{0.95\linewidth}{
+On a side note, at this point we could perform SVD on the covariance matrix, instead of EVD.
+This would produce values $\sigma$. But because we are doing this on a covariance matrix,
+these values $\sigma$ will take the same values as the values $\lambda_{3}$ found using EVD.
+(By the way in section \ref{EvdSvdConnection} this fact is clarified.)
+That is because of the covariance matrix being positive semidefinite, and symmetrical.
+But this is not the SVD opportunity that will be discussed here mainly.
+}
+}
+}
+
+Alternatively, we could perform SVD on the original data instead of EVD on the covariance matrix.
+But in this case we take the mean-centered data, so matrix Amc.
+
+Because of how SVD is done by definition, we would calculate:
+\[
+\begin{aligned}
+Amc \cdot Amc^{T} \\
+Amc^{T} \cdot Amc \\
+\end{aligned}
+\]
+On each of these we would take EVD. (Please note that $Amc^{T} \cdot Amc$ is almost the
+covariance matrix but without scaling by $\frac{1}{m-1}$).
+
+The EVD produces eigenvalues $\lambda_{1}$ and $\lambda_{2}$ respectively
+which are of the same value.
+We have already noticed the difference in scaling between this step, and EVD from the covariance matrix.\\
+
+So we have:
+\[
+\begin{aligned}
+\sigma = \sqrt{\lambda_{2}} \\
+\frac{\sigma^{2}}{m-1} = \lambda_{3}
+\end{aligned}
+\]
+
+This was the point where SVD can be used for PCA, from here PCA proceeds as usual.\\
+Below fig \ref{PCADiagram} there is a diagram that shows the steps and how they relate: \\
+
+We have also created a small python program that does the following:
+\begin{itemize}
+    \item Define testmatrix A
+    \item Calculate PCA values
+    \item Show that EVD on the covariance matrix and SVD on the covariance matrix produces the same values
+    \item Show that SVD on the mean-centered data produces the same values apart from scaling
+\end{itemize}
+Link to this python program:
+\url{https://github.com/evert823/ejk_work_ib3702/blob/main/pca_evd_svd.py}
+
+
+\begin{figure}[htbp]
+    \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
+    \caption{PCA overview and steps }
+    \label{PCADiagram}
+\end{figure}
+
+
 \subsection{Connection between EVD and SVD}
+\label{EvdSvdConnection}
 This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
 EVD rewrites a matrix $A$ into separate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
 SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Sigma$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $U$ one uses:
