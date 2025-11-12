@@ -56,10 +56,11 @@ Notation of Hessian matrix with second partial derivatives:
   \item PCA Principle Component Analysis
   \item SVD Singular Value Decomposition
 \end{enumerate}
+\vspace{1em}
+\textbf{Problems for the reader}\\
 
-
-After reading the report, please solve the following problems:\\
-\textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
+\vspace{1em}
+\textbf{Problem 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
 \\
 \textbf{Answer 1}: The Hessian matrix becomes $H = \begin{bmatrix}
 \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
@@ -73,9 +74,44 @@ After reading the report, please solve the following problems:\\
 2 & 12
 \end{bmatrix}$
 \\
-\textbf{Question 2}: 
-\\
+\textbf{Problem 2}:\\
+The \textit{covariance matrix} is not only one of the ingredients of PCA,
+it is generally an important concept in data analysis in general, and statistics and
+Data Science in particular. For the following matrix please calculate the covariance matrix:
+
+\[
+\begin{bmatrix}
+  2.7245 &  3.1032 & -13.9551 &  92.95328 \\
+  1.4978 &  0.8653 &   1.2219 &  -1.96032 \\
+  6.1456 &  0.7784 &   0.3391 &  17.59555 \\
+  7.5821 &  1.2493 &   8.4127 & -25.25591 \\
+  6.9963 &  6.0318 &  -7.4444 &  69.83275 \\
+ -3.6614 &-10.5902 &  15.1286 &-108.02222 \\
+-11.2357 & -1.4490 &   3.7832 & -58.16585 \\
+  7.8109 &  7.3721 &  -2.6598 &  45.06708 \\
+  4.0635 &  4.9214 &  11.2876 & -50.55501 \\
+ 11.3492 &  8.1348 &  -8.9687 &  93.79221 \\
+ -6.5790 & 11.8026 &   6.0447 & -47.79681 \\
+ -2.2184 &-12.5477 &   4.6165 & -42.89778 \\
+  8.8841 & -6.2996 &  -2.7328 &  39.25451 \\
+ 10.4308 & 11.6823 &  13.2762 & -37.81649 \\
+  0.0127 &  3.4535 &  -0.8084 &   7.22638 \\
+\end{bmatrix}
+\]\\
+And what is the meaning of the entry in 1st row 1st column of the covariance matrix?\\
+And what is the meaning of the entry in 1st row 2nd column of the covariance matrix?\\
 \textbf{Answer 2}:
+\[
+\begin{bmatrix}
+  43.4188926   &  16.00264562  & -15.23151651  &  235.6663664 \\
+  16.00264562  &  52.75539574  & -10.60690849  &  149.11773854 \\
+ -15.23151651  & -10.60690849  &  69.4511483   & -464.4043121 \\
+ 235.6663664   & 149.11773854  & -464.4043121  & 3574.93359423
+\end{bmatrix}
+\]
+The meaning of the diagonal entries is the variance of an individual feature of the dataset.
+The non-diagonal entries indicate, for the corresponding two features of the original matrix, how these features
+correlate, meaning to what extent one feature increases when another feature increases or decreases.\\
 
 
 \section{Methods}
