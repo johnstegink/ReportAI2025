@@ -7,8 +7,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 
-\title{Project ``Hessian Matrices and : '' \\
-	{Title} \\ 
+\title{Project ``Newton's method versus Gradient descent, SVD in Principle Component Analysis'' \\
 	IB3702 Mathematics for Machine Learning} % Fill in the chosen topic; and optionally, give a title to your project (you can overwrite {Title})
 \author{Evertjan Karman \and John Stegink} % Swap with your names
 \date{15 November, 2025} % adjust date: when do you submit this assignment?
@@ -17,7 +16,7 @@
 \maketitle
 
 \section{Introduction}
-The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent
+The basis of a machine learning algorithm is, that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent
 (sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations.
 In this report we compare two methods, Gradient descent and Newton's method. For Newton's method the Hessian matrix with second partial derivatives is required.\\
 First a description of gradient descent and Newton's method will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables.\\
@@ -56,10 +55,11 @@ Notation of Hessian matrix with second partial derivatives:
   \item PCA Principle Component Analysis
   \item SVD Singular Value Decomposition
 \end{enumerate}
+\vspace{1em}
+\textbf{Problems for the reader}\\
 
-
-After reading the report, please solve the following problems:\\
-\textbf{Question 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
+\vspace{1em}
+\textbf{Problem 1}: Compute the Hessian Matrix for the function $f(x) = x^3+y^3+2xy$ in the point $x=1, y=2$.
 \\
 \textbf{Answer 1}: The Hessian matrix becomes $H = \begin{bmatrix}
 \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
@@ -73,15 +73,51 @@ After reading the report, please solve the following problems:\\
 2 & 12
 \end{bmatrix}$
 \\
-\textbf{Question 2}: 
-\\
+\textbf{Problem 2}:\\
+The \textit{covariance matrix} is not only one of the ingredients of PCA,
+it is generally an important concept in data analysis in general, and statistics and
+Data Science in particular. For the following matrix please calculate the covariance matrix:
+
+\[
+\begin{bmatrix}
+  2.7245 &  3.1032 & -13.9551 &  92.95328 \\
+  1.4978 &  0.8653 &   1.2219 &  -1.96032 \\
+  6.1456 &  0.7784 &   0.3391 &  17.59555 \\
+  7.5821 &  1.2493 &   8.4127 & -25.25591 \\
+  6.9963 &  6.0318 &  -7.4444 &  69.83275 \\
+ -3.6614 &-10.5902 &  15.1286 &-108.02222 \\
+-11.2357 & -1.4490 &   3.7832 & -58.16585 \\
+  7.8109 &  7.3721 &  -2.6598 &  45.06708 \\
+  4.0635 &  4.9214 &  11.2876 & -50.55501 \\
+ 11.3492 &  8.1348 &  -8.9687 &  93.79221 \\
+ -6.5790 & 11.8026 &   6.0447 & -47.79681 \\
+ -2.2184 &-12.5477 &   4.6165 & -42.89778 \\
+  8.8841 & -6.2996 &  -2.7328 &  39.25451 \\
+ 10.4308 & 11.6823 &  13.2762 & -37.81649 \\
+  0.0127 &  3.4535 &  -0.8084 &   7.22638 \\
+\end{bmatrix}
+\]\\
+What is the meaning of the diagonal entries of the covariance matrix?\\
+And what is the meaning of the non-diagonal entries?\\
 \textbf{Answer 2}:
+\[
+\begin{bmatrix}
+  43.4188926   &  16.00264562  & -15.23151651  &  235.6663664 \\
+  16.00264562  &  52.75539574  & -10.60690849  &  149.11773854 \\
+ -15.23151651  & -10.60690849  &  69.4511483   & -464.4043121 \\
+ 235.6663664   & 149.11773854  & -464.4043121  & 3574.93359423
+\end{bmatrix}
+\]
+The meaning of the diagonal entries is the variance of an individual feature of the dataset.
+The non-diagonal entries indicate, for the corresponding two features of the original matrix, how these features
+correlate, meaning to what extent one feature increases when another feature increases or decreases.\\
 
 
 \section{Methods}
 \subsection{Gradient descent with one variable}
 \label{GradientDescent1}
-The purpose of using gradient descent is to find a local or global minimum of a differentiable function by iteratively adjusting the parameters in the direction of the steepest descent. This a mouthful. \\It can be clarified by the following metaphor: 	When you want to find the path from the top to the foot of the mountain in the mist. You walk a few meters down the path with the steepest descent. Then you determine the next path with the steepest descent\footnote{https://en.wikipedia.org/wiki/Gradient\_descent}. Appendix \ref{metaGradientDescent} contains a more detailed version of this metaphor.
+The purpose of using gradient descent is to find a local or global minimum of a differentiable function by iteratively adjusting the parameters in the direction of the steepest descent. This a mouthful. \\It can be clarified by the following metaphor: 	When you want to find the path from the top to the foot of the mountain in the mist. You walk a few meters down the path with the steepest descent. Then you determine the next path with the steepest descent\footnote{https://en.wikipedia.org/wiki/Gradient\_descent}.
+Appendix \ref{metaGradientDescent} contains a more detailed version of this metaphor.
 \\
 Assume that we have a continuous function f defined on $\mathbb{R}$ (fig \ref{contfunctionR}).This function is differentiable with derivative $f'(x)$ and has a starting point $x_0$.
 Then we get $x_1$ by subtracting $f'(x_0) \cdot \alpha$ from $x_0$, where $\alpha$ is called the learning rate. This is equal to walking the path in the steepest descent by $\alpha$ meters in the metaphore. The value of $\alpha$  will be chosen before starting the procedure. Usual values for $\alpha$ are $0.01$ or $0.05$.\\
@@ -191,7 +227,7 @@ Generally a Hessian Matrix has the form: $\mathbf{H}_f =
 
 
 The Hessian matrix is a symmetric matrix most of the times.
-(Because there is Clairaut’s Theorem that states, that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ under specific conditions which ar usually true when we have smooth functions.)
+(Because there is Clairaut’s Theorem that states, that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ under specific conditions which are usually true when we have smooth functions.)
 
 With Hessian matrix local minima, maxima and stationary points of a function can be found. It helps to identify saddle points, local minima and local maxima.
 A saddle point (figure \ref{SaddlePoint}) is a stationary point that is neither a local maximum nor a local minimum.
@@ -220,6 +256,8 @@ If the gradient has value (0,0) at point (x,y) then:\\
 - If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum\\
 - If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum\\
 - If one of the eigenvalues of $H_f$ at (x,y) are zero, or we have mixed signs, it's inconclusive or we may have a saddle point\\
+\textit{Why} this relation between these eigenvalues and the surface of the function graph is there,
+is beyond the scope of this report.\\
 In Newton's method generalized to more than one variables, the formula for the next point is:
 \[
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
@@ -228,9 +266,15 @@ In Newton's method generalized to more than one variables, the formula for the n
 \subsection{SVD in PCA}
 The aim of this section is not to provide an explanation about Principle Component Analysis in general.
 The aim is to zoom in to the possibility, at a certain point, to apply SVD in PCA, instead of the more widely used definition of PCA based on EVD.
-The explanation will be made clearer by a diagram of the process (figure \ref{PCADiagram}), that visualizes how the different steps and alternatives relate.
+The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.\\
+The explanation that follows now will align with the diagram in fig \ref{PCADiagram}, that shows the same steps, and how they relate: \\
+\begin{figure}[htbp]
+    \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
+    \caption{PCA overview and steps }
+    \label{PCADiagram}
+\end{figure}
 
-We start with an $m \times n$ matrix A, feature by observation, so there are $m$ observations and $n$ features.
+We start with an mxn matrix A, feature by observation, so there are m observations and n features.
 We will mean-center it and call it $A_{mean-centered}$ or $Amc$.
 
 In the most common definition we will now create the covariance matrix, which is
@@ -267,9 +311,8 @@ On each of these we would take EVD. (Please note that $Amc^{T} \cdot Amc$ is alm
 covariance matrix but without scaling by $\frac{1}{m-1}$).
 
 The EVD produces eigenvalues $\lambda_{1}$ and $\lambda_{2}$ respectively
-which have the same value.
-% de zin hieronder begrijp ik niet, misschien iets meer uitleg
-\textbf{!!!!!} We have already noticed the difference in scaling between this step, and EVD from the covariance matrix.\textbf{!!!!!}\\
+which are of the same value.
+We have already noticed the difference in scaling between this step, and EVD from the covariance matrix.\\
 
 So we have:
 \[
@@ -280,7 +323,6 @@ So we have:
 \]
 
 This was the point where SVD can be used for PCA, from here PCA proceeds as usual.\\
-Below fig \ref{PCADiagram} there is a diagram that shows the steps and how they relate: \\
 
 We have also created a small python program that does the following:
 \begin{itemize}
@@ -289,16 +331,17 @@ We have also created a small python program that does the following:
     \item Show that EVD on the covariance matrix and SVD on the covariance matrix produces the same values
     \item Show that SVD on the mean-centered data produces the same values apart from scaling
 \end{itemize}
+Appendix \ref{PCACompare} shows the printed output of a testcase.
 Link to this python program:
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/pca_evd_svd.py}
 
 
-\begin{figure}[htb]
-    \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
-    \caption{PCA overview and steps }
-    \label{PCADiagram}
-\end{figure}
-
+\subsection{Notes on pros and cons of PCA with EVD versus SVD}
+When a dataset becomes very large, SVD will become more memory intensive.
+This could be reproduced with the python program (based on numpy): runtimes of the SVD step took more time and memory.\\
+When a dataset is ill-conditioned, SVD is numerically more stable. In the lower singular values,
+the differences between these two methods become relatively larger.
+Also this could be reproduced in the same python program.
 
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
@@ -325,6 +368,9 @@ This is the eigen value decomposition, where $\Sigma'$ = $\Sigma^2$.
 
 
 \section{Numerical Examples}
+
+\subsection{Gradient descent versus Newton's method}
+
 We will look at this function (fig \ref{3Dsurface}):
 \[
 f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
@@ -379,19 +425,47 @@ Gradient Descent from (3.2,3.2) with learning rate 0.05 takes 27 iterations to r
 
 The python code can be found on \\
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/dogradientdescent.py}
-\url{https://github.com/evert823/ejk_work_ib3702/blob/main/donewton.py}
+\url{https://github.com/evert823/ejk_work_ib3702/blob/main/donewton.py}\\
+
+\subsection{SVD versus EVD in PCA}
+
+Appendix \ref{PCACompare} shows the printed output of a testcase which is also a numerical example of PCA, SVD, EVD.
 
 \section{Collaboration}
+\subsection{Reflection on collaboration}
+During collaboration it was very good that we had regular meetings.
+After agreeing on a breakdown of the work and how to divide it, the work was sometimes individual. Because we don't always focus on the project on the same moments.
+A small practical thing is collaborating on LaTeX documents in GitHub: make sure that both contributors use the same version of a LaTeX compiler!
+\subsection{Individual input}
+\textbf{Evert Jan}
+\begin{enumerate}
+  \item Initial proposals for Calculus topics and initial versions of descriptions of methods
+  \item Numerical examples
+  \item Python programs to demonstrate the concepts (where manual calculations would have been too tedious)
+  \item Topic SVD in PCA and diagram
+\end{enumerate}
+\textbf{John}
+\begin{enumerate}
+  \item Topic "Connection between EVD and SVD", which explains why on a covariance matrix SVD and EVD produce results of the same value.
+  \item More explanatory texts, metaphors
+  \item Overall setup of project document in LaTeX
+\end{enumerate}
+
 
 Text...
 
 \section{Reflection}
 
-\subsection{Student a}
+\subsection{Evert Jan}
+I noticed that John was up to speed with LaTeX and for me that was new. It's a good thing that I'm now up to speed with LaTeX as well.
+One problem in general of this project is that the scope is open. Sometimes I was diving into advanced books in order to find something that I can use.
+Or I was trying something that turned out to be too advanced so that I had to start in a different way. This is more difficult than receiving a fixed problem,
+that has been prepared by an instructor for the student. But it's good to have such a challenge.\\
+Still for me it was very hard to timebox and I probably spent much more time on it then the adviced hours.
+Also the practical aspects of how to do the project added to this.
 
-Text...
 
-\subsection{Student b}
+\subsection{John}
 
 Text...
 
@@ -406,7 +480,6 @@ The basic intuition behind gradient descent can be illustrated by a hypothetical
 \\
 In this analogy, the people represent the algorithm, and the path taken down the mountain represents the sequence of parameter settings that the algorithm will explore. The steepness of the hill represents the slope of the function at that point. The instrument used to measure steepness is differentiation. The direction they choose to travel in aligns with the gradient of the function at that point. The amount of time they travel before taking another measurement is the step size. \\
 
-	Copied from \cite{Wikipedia2025_gd}.
 \section{Output of Python scripts for Hessian Matrices}
 \subsection{Gradient descent}
 \label{gradientDescentPython}
@@ -470,5 +543,60 @@ Eigenvalues of Hessian: [4.2666675 4.2666675]
 \end{verbatim} 
 }
 
+\subsection{PCA python output of compare EVD and SVD}
+\label{PCACompare}
+{\footnotesize
+\begin{verbatim}
+Our testmatrix
+[[   2.7245     3.1032   -13.9551    92.95328]
+ [   1.4978     0.8653     1.2219    -1.96032]
+ [   6.1456     0.7784     0.3391    17.59555]
+ [   7.5821     1.2493     8.4127   -25.25591]
+ [   6.9963     6.0318    -7.4444    69.83275]
+ [  -3.6614   -10.5902    15.1286  -108.02222]
+ [ -11.2357    -1.449      3.7832   -58.16585]
+ [   7.8109     7.3721    -2.6598    45.06708]
+ [   4.0635     4.9214    11.2876   -50.55501]
+ [  11.3492     8.1348    -8.9687    93.79221]
+ [  -6.579     11.8026     6.0447   -47.79681]
+ [  -2.2184   -12.5477     4.6165   -42.89778]
+ [   8.8841    -6.2996    -2.7328    39.25451]
+ [  10.4308    11.6823    13.2762   -37.81649]
+ [   0.0127     3.4535    -0.8084     7.22638]]
+eigenvalues found with EVD on covariance matrix
+[[3657.04922556    0.            0.            0.        ]
+ [   0.           52.69561292    0.            0.        ]
+ [   0.            0.           30.81419239    0.        ]
+ [   0.            0.            0.           -0.        ]]
+Singular values found with SVD on covariance matrix
+[[3657.04922556    0.            0.            0.        ]
+ [   0.           52.69561292    0.            0.        ]
+ [   0.            0.           30.81419239    0.        ]
+ [   0.            0.            0.            0.        ]]
+Singular values found with SVD on mean-centered data
+[[226.27127338   0.           0.           0.        ]
+ [  0.          27.1613435    0.           0.        ]
+ [  0.           0.          20.77013947   0.        ]
+ [  0.           0.           0.           0.        ]]
+
+Now checking if both methods have produced the same values ...
+Checking values match i 0 s1 3657.049225564554 s2 3657.0492255645527
+Checking values match i 1 s1 52.69561291533943 s2 52.69561291533954
+Checking values match i 2 s1 30.814192386824338 s2 30.81419238682428
+Checking values match i 3 s1 2.3671877383930476e-30 s2 -2.1316282072803006e-14
+OK!
+\end{verbatim} 
+}
+
+\section{Sources used for this project}
+For the explanation of Gradient descent and Newton's method we took inspiration from Coursera, Mathematics for Machine Learning specialization (DeepLearning.AI).
+Although the details and computations provided here deviate further from this course.\\
+
+The book Numerical Optimization by Nocedal/Wright provides a deep explanation of why the eigenvalues of the Hessian matrix have
+a relationship with the curve of the function that we aim to minimize.
+
+For a description of PCA and the possibility of SVD, we used Practical Linear Algebra for Data Science by Mike X Cohen.
+
+We checked a few basics in Stewart's Calculus textbook "early transcendentals 9E", for example Clairaut's Theorem
 
 \end{document}  
