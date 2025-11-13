@@ -301,6 +301,14 @@ Link to this python program:
 
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
+For understanding the below please be reminded of three things:
+\begin{enumerate}
+  \item For any matrices A, B, $ A^T B^T = (BA)^T $.
+  \item The $U$ and $V^T$ resulting from SVD are orthogonal matrices.
+  \item Any matrix A is orthogonal if $ A^T A = A A^T = \mathbb{I} $.
+\end{enumerate}
+
+
 This paragraph summarizes the relation between Eigenvalue Decomposition (EVD) and Singular Value Decomposition (SVD).\\
 For any matrix $A$, its SVD is $A = U \Sigma V^T$, where $\Sigma = \operatorname{diag}(\sigma_1,\ldots)$ contains the singular values $\sigma_i \ge 0$ (sorted). From this it follows that
 \[
