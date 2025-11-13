@@ -334,6 +334,14 @@ Appendix \ref{PCACompare} shows the printed output of a testcase.
 Link to this python program:
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/pca_evd_svd.py}
 
+
+\subsection{Notes on pros and cons of PCA with EVD versus SVD}
+When a dataset becomes very large, SVD will become more memory intensive.
+This could be reproduced with the python program (based on numpy): runtimes of the SVD step took more time and memory.\\
+When a dataset is ill-conditioned, SVD is numerically more stable. In the lower singular values,
+the differences between these two methods become relatively larger.
+Also this could be reproduced in the same python program.
+
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
 This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
@@ -445,7 +453,13 @@ Text...
 \subsection{Evert Jan}
 I noticed that John was up to speed with LaTeX and for me that was new. It's a good thing that I'm now up to speed with LaTeX as well.
 One problem in general of this project is that the scope is open. Sometimes I was diving into advanced books in order to find something that I can use.
-Or I was trying something that turned out to be too advanced so that I had to start in a different way. This is more difficult than receiving a fixed problem, that has been prepared by an instructor for the student.
+Or I was trying something that turned out to be too advanced so that I had to start in a different way. This is more difficult than receiving a fixed problem,
+that has been prepared by an instructor for the student. But it's good to have such a challenge.\\
+On the project itself: for me it was very hard to timebox and I probably spent much more time on it then the adviced hours.
+Much time goes into figuring out how to execute the project, which is time not always spent on mathematics alone.
+At the moment this is the only course I need to worry about. For somebody who is doing more modules in parallel,
+this could have been a challenge.
+
 
 \subsection{John}
 
