@@ -7,8 +7,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 
-\title{Project ``Hessian Matrices and : '' \\
-	{Title} \\ 
+\title{Project ``Newton's method versus Gradient descent, SVD in Principle Component Analysis'' \\
 	IB3702 Mathematics for Machine Learning} % Fill in the chosen topic; and optionally, give a title to your project (you can overwrite {Title})
 \author{Evertjan Karman \and John Stegink} % Swap with your names
 \date{15 November, 2025} % adjust date: when do you submit this assignment?
@@ -17,7 +16,7 @@
 \maketitle
 
 \section{Introduction}
-The basis of a machine learning algorithm that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent
+The basis of a machine learning algorithm is, that it tries to predict the right output using a certain input. First the algorithm will have to be trained using correct data. During the training process, the difference between the predicted value and the actual value must be minimized. A cost function is used to quantize the difference, this difference must be minimized. To find the minimum value, the machine learning algorithm iterates until it has found the minimum value. The methods for this iteration are numerous, the most well known algorithm is gradient descent
 (sections \ref{GradientDescent1} and \ref{GradientDescent2} ). For the training to be as effective as possible it is necessary to find the minimum in little iterations.
 In this report we compare two methods, Gradient descent and Newton's method. For Newton's method the Hessian matrix with second partial derivatives is required.\\
 First a description of gradient descent and Newton's method will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables.\\
@@ -98,8 +97,8 @@ Data Science in particular. For the following matrix please calculate the covari
   0.0127 &  3.4535 &  -0.8084 &   7.22638 \\
 \end{bmatrix}
 \]\\
-And what is the meaning of the entry in 1st row 1st column of the covariance matrix?\\
-And what is the meaning of the entry in 1st row 2nd column of the covariance matrix?\\
+What is the meaning of the diagonal entries of the covariance matrix?\\
+And what is the meaning of the non-diagonal entries?\\
 \textbf{Answer 2}:
 \[
 \begin{bmatrix}
@@ -228,7 +227,7 @@ Generally a Hessian Matrix has the form: $\mathbf{H}_f =
 
 
 The Hessian matrix is a symmetric matrix most of the times.
-(Because there is Clairaut’s Theorem that states, that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ under specific conditions which ar usually true when we have smooth functions.)
+(Because there is Clairaut’s Theorem that states, that $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ under specific conditions which are usually true when we have smooth functions.)
 
 With Hessian matrix local minima, maxima and stationary points of a function can be found. It helps to identify saddle points, local minima and local maxima.
 A saddle point (figure \ref{SaddlePoint}) is a stationary point that is neither a local maximum nor a local minimum.
@@ -257,6 +256,8 @@ If the gradient has value (0,0) at point (x,y) then:\\
 - If all the eigenvalues of $H_f$ at (x,y) are positive, it's a minimum\\
 - If all the eigenvalues of $H_f$ at (x,y) are negative, it's a maximum\\
 - If one of the eigenvalues of $H_f$ at (x,y) are zero, or we have mixed signs, it's inconclusive or we may have a saddle point\\
+\textit{Why} this relation between these eigenvalues and the surface of the function graph is there,
+is beyond the scope of this report.\\
 In Newton's method generalized to more than one variables, the formula for the next point is:
 \[
 (x_{k+1},y_{k+1}) = (x_k,y_k) - ( H_f^{-1}(x_k,y_k) \cdot \nabla f(x_k,y_k) )
@@ -367,6 +368,9 @@ This is the eigen value decomposition, where $\Sigma'$ = $\Sigma^2$.
 
 
 \section{Numerical Examples}
+
+\subsection{Gradient descent versus Newton's method}
+
 We will look at this function (fig \ref{3Dsurface}):
 \[
 f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)
@@ -423,6 +427,8 @@ The python code can be found on \\
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/dogradientdescent.py}
 \url{https://github.com/evert823/ejk_work_ib3702/blob/main/donewton.py}\\
 
+\subsection{SVD versus EVD in PCA}
+
 Appendix \ref{PCACompare} shows the printed output of a testcase which is also a numerical example of PCA, SVD, EVD.
 
 \section{Collaboration}
@@ -433,7 +439,7 @@ A small practical thing is collaborating on LaTeX documents in GitHub: make sure
 \subsection{Individual input}
 \textbf{Evert Jan}
 \begin{enumerate}
-  \item Initial proposals for Calculus topics and initial versions of descriptions of methods (I've taken inspiration from Coursera's mathematical specialization series, specifically the function used as example, but further scope and details deviate from this course.)
+  \item Initial proposals for Calculus topics and initial versions of descriptions of methods
   \item Numerical examples
   \item Python programs to demonstrate the concepts (where manual calculations would have been too tedious)
   \item Topic SVD in PCA and diagram
@@ -455,10 +461,8 @@ I noticed that John was up to speed with LaTeX and for me that was new. It's a g
 One problem in general of this project is that the scope is open. Sometimes I was diving into advanced books in order to find something that I can use.
 Or I was trying something that turned out to be too advanced so that I had to start in a different way. This is more difficult than receiving a fixed problem,
 that has been prepared by an instructor for the student. But it's good to have such a challenge.\\
-On the project itself: for me it was very hard to timebox and I probably spent much more time on it then the adviced hours.
-Much time goes into figuring out how to execute the project, which is time not always spent on mathematics alone.
-At the moment this is the only course I need to worry about. For somebody who is doing more modules in parallel,
-this could have been a challenge.
+Still for me it was very hard to timebox and I probably spent much more time on it then the adviced hours.
+Also the practical aspects of how to do the project added to this.
 
 
 \subsection{John}
@@ -476,7 +480,6 @@ The basic intuition behind gradient descent can be illustrated by a hypothetical
 \\
 In this analogy, the people represent the algorithm, and the path taken down the mountain represents the sequence of parameter settings that the algorithm will explore. The steepness of the hill represents the slope of the function at that point. The instrument used to measure steepness is differentiation. The direction they choose to travel in aligns with the gradient of the function at that point. The amount of time they travel before taking another measurement is the step size. \\
 
-	Copied from \cite{Wikipedia2025_gd}.
 \section{Output of Python scripts for Hessian Matrices}
 \subsection{Gradient descent}
 \label{gradientDescentPython}
@@ -585,6 +588,13 @@ OK!
 \end{verbatim} 
 }
 
+\section{Sources used for this project}
+For the explanation of Gradient descent and Newton's method we took inspiration from Coursera, Mathematics for Machine Learning specialization (DeepLearning.AI).
+Although the details and computations provided here deviate further from this course.\\
 
+The book Numerical Optimization by Nocedal/Wright provides a deep explanation of why the eigenvalues of the Hessian matrix have
+a relationship with the curve of the function that we aim to minimize.
+
+For a description of PCA and the possibility of SVD, we used Practical Linear Algebra for Data Science by Mike X Cohen.
 
 \end{document}  
