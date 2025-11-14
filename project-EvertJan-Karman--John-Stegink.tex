@@ -9,7 +9,7 @@
 
 \title{Project ``Newton's method versus Gradient descent, SVD in Principle Component Analysis'' \\
 	IB3702 Mathematics for Machine Learning} % Fill in the chosen topic; and optionally, give a title to your project (you can overwrite {Title})
-\author{Evertjan Karman \and John Stegink} % Swap with your names
+\author{Evert Jan Karman \and John Stegink} % Swap with your names
 \date{15 November, 2025} % adjust date: when do you submit this assignment?
 
 \begin{document}
@@ -21,7 +21,7 @@ The basis of a machine learning algorithm is, that it tries to predict the right
 In this report we compare two methods, Gradient descent and Newton's method. For Newton's method the Hessian matrix with second partial derivatives is required.\\
 First a description of gradient descent and Newton's method will be given for functions using one variable, this is to make the principle clear. Normally for machine learning, 1 variable is not sufficient, the loss function mostly contains multiple variables.\\
 Newton's method can find the minimum in far less iterations than Gradient descent. The problem of Newton's method, is that calculating a Hessian Matrix is much more expensive than using just the derivative, as is done with Gradient descent.\\
-\textbf{Next to this}, this report will cover the possibility of SVD in PCA, and the link between EVD and SVD (see abbreviations below).
+\\The second part of this report contains research into linear algebra theory. The report will cover the possibility of using Singular Value Decomposition (SVD) as part of Principal Component Analyses (PCA). The report contains a practical proof of the theory. The second discussion is about the link between Eigen Value Decomposition (EVD) and and  SVD.
 
 \section{Preliminaries}
 The notation is similar to the notation of the study guide of IB3702 Mathematics for Machine Learning.\\
@@ -173,7 +173,7 @@ $f''(x) = 0 \Rightarrow$ inconclusive, perhaps an inflection point\\
 \subsection{Functions with two or more variables and their derivatives}
 
 A function with one variable describes the result of a calculation with respect to just 1 variable. In practice the result of a function is dependent on more that one variable. For example the price of a house is not only dependent on the floor area of the house, but for example the distance to the nearest shops count, the number of crimes in the area per year etc. This means the function has multiple variables. This is what we see in machine learning most of the time too. An example of a graph of the multi value function can be seen in figure \ref{3Dsurface}. This depicts the function $f(x,y) = 85 - \frac{1}{90}x^2(x-6)y^2(y-6)$. As you can see the function is defined by two variables: $f(x,y)$.\\
-	Finding the slope in a point using a function with one variable is easily done by determining the derivative. For multi value functions this is done in only 1 direction at a time. This means the derivatie has te determined with regard to 1 variable the rest of the variables is considered as a constant. \cite{calcworkshopcom2022} describes this very well. 	\\
+	Finding the slope in a point using a function with one variable is easily done by determining the derivative. For multi value functions this is done in only 1 direction at a time. This means the derivatie has te determined with regard to 1 variable the rest of the variables is considered as a constant.  	\\
 	Mathematically:
 	\[
 \frac{\partial f}{\partial x} = f_x(x, y) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta x}
@@ -268,7 +268,7 @@ The aim of this section is not to provide an explanation about Principle Compone
 The aim is to zoom in to the possibility, at a certain point, to apply SVD in PCA, instead of the more widely used definition of PCA based on EVD.
 The explanation will be made clearer by a diagram of the process, that visualizes how the different steps and alternatives relate.\\
 The explanation that follows now will align with the diagram in fig \ref{PCADiagram}, that shows the same steps, and how they relate: \\
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \includegraphics[width=0.9\textwidth]{images/PCA_EVD_SVD.drawio.png}
     \caption{PCA overview and steps }
     \label{PCADiagram}
@@ -346,21 +346,28 @@ Also this could be reproduced in the same python program.
 \subsection{Connection between EVD and SVD}
 \label{EvdSvdConnection}
 This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
+For understanding the below please be reminded of three things:
+\begin{enumerate}
+  \item For any matrices A, B, $ A^T B^T = (BA)^T $.
+  \item The $U$ and $V^T$ resulting from SVD are orthogonal matrices.
+  \item Any matrix A is orthogonal if $ A^T A = A A^T = \mathbb{I} $.
+\end{enumerate}
+
 EVD rewrites a matrix $A$ into separate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
 SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Sigma$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $U$ one uses:
 \[
 AA^T = \left( U \Sigma V^T \right) \left( U \Sigma V^T \right)^T = U \Sigma V^T V \Sigma^T U^T = U \Sigma^2 U^T\]
-Because $A.A^T$ is symmetrical the eigen decomposition becomes: $ A.A^T = Q \Lambda Q^T$ when substituting $\Lambda$ for $\Sigma^2$ and because $\Sigma$. When calculating values voor $\Sigma$ one has to take te square root of the values of $\Lambda$. This can easily be done because $\Lambda$ is a diagonal matrix.\\
-A similar computation is for matrix $V$
+A similar computation is for matrix $V$:
 \[
 A^T A = \left( U \Sigma V^T \right)^T \left( U \Sigma V^T \right) = V \Sigma^T U^T U \Sigma V^T = V \Sigma^2 V^T\]
-If a matrix $S$ is square, symmetric, and positive semi-definite, meaning $A.A^T = A^t .A$ then both $U$ and $V$ from SVD are the same (see previous two equations). The SVD can then be written as 
+Because $A.A^T$ is symmetrical the eigen decomposition becomes: $ A.A^T = Q \Lambda Q^T$ when substituting $\Lambda$ for $\Sigma^2$ and because $\Sigma$. When calculating values voor $\Sigma$ one has to take te square root of the values of $\Lambda$. This can easily be done because $\Lambda$ is a diagonal matrix.\\
+If a matrix $S$ is square, symmetric, and positive semi-definite, meaning $S.S^T = S^T .S$ then both $U$ and $V$ from SVD are the same (see previous two equations). The SVD can then be written as 
 
 \[
-S = U \Sigma^2 U^T
- \text{ or } S = V \Sigma^2 V^T
+S.S^T = U \Sigma^2 U^T
+ \text{ or } S^TS = V \Sigma^2 V^T 
  \]
-this is the same. And because U is orthogonal (definition of SVD), we the transpose is equal to the inverse. Meaning we have the following formula:
+this is the same. And because U is orthogonal (definition of SVD), the transpose is equal to the inverse. Meaning we have the following formula:
 \[
 S = U {\Sigma'} U^{-1}
 \]
@@ -434,7 +441,7 @@ Appendix \ref{PCACompare} shows the printed output of a testcase which is also a
 \section{Collaboration}
 \subsection{Reflection on collaboration}
 During collaboration it was very good that we had regular meetings.
-After agreeing on a breakdown of the work and how to divide it, the work was sometimes individual. Because we don't always focus on the project on the same moments.
+After agreeing on a breakdown of the work and how to divide it, the work was sometimes individual. Because we didn't always focus on the project on the same moments.
 A small practical thing is collaborating on LaTeX documents in GitHub: make sure that both contributors use the same version of a LaTeX compiler!
 \subsection{Individual input}
 \textbf{Evert Jan}
@@ -447,12 +454,9 @@ A small practical thing is collaborating on LaTeX documents in GitHub: make sure
 \textbf{John}
 \begin{enumerate}
   \item Topic "Connection between EVD and SVD", which explains why on a covariance matrix SVD and EVD produce results of the same value.
-  \item More explanatory texts, metaphors
+  \item More explanatory texts and metaphors.
   \item Overall setup of project document in LaTeX
 \end{enumerate}
-
-
-Text...
 
 \section{Reflection}
 
@@ -461,16 +465,27 @@ I noticed that John was up to speed with LaTeX and for me that was new. It's a g
 One problem in general of this project is that the scope is open. Sometimes I was diving into advanced books in order to find something that I can use.
 Or I was trying something that turned out to be too advanced so that I had to start in a different way. This is more difficult than receiving a fixed problem,
 that has been prepared by an instructor for the student. But it's good to have such a challenge.\\
-Still for me it was very hard to timebox and I probably spent much more time on it then the adviced hours.
+Still for me it was very hard to timebox and I probably spent much more time on it then the advised hours.
 Also the practical aspects of how to do the project added to this.
 
-
 \subsection{John}
+I found it difficult to get started, especially finding a subject and finding out what was necessary to research and describe. During the research I found that I didn't understand in detail what was taught during the course, creating this report helped me get a better understanding. It took a lot of time (much more than the 20 hours) to do the research and the writing. Luckily, Evert Jan has developed the Python scripts for validation. \\
+Writing a report I think is better as and end to a course than an exam. When you have an exam you have learn the theory. While writing a report makes you think deeper about the theory. You also learn how to apply the theory and the practical applications.\\
+Working together with Evert Jan was very pleasant. We do things in a different way. this maked the final result better.
 
-Text...
+\section{References}
+For the explanation of Gradient descent and Newton's method we took inspiration from Coursera, Mathematics for Machine Learning specialization (DeepLearning.AI).
+Although the details and computations provided here deviate further from this course.\\
 
-\bibliographystyle{plainnat} % Kies een stijl, bijvoorbeeld plainnat, abbrvnat, of apalike
-\bibliography{references} % Zonder de .bib-extensie
+The book Numerical Optimization by Nocedal/Wright provides a deep explanation of why the eigenvalues of the Hessian matrix have
+a relationship with the curve of the function that we aim to minimize.
+
+For a description of PCA and the possibility of SVD, we used Practical Linear Algebra for Data Science by Mike X Cohen.
+
+The metaphors on gradient descent come from Wikipedia. 
+
+We checked a few basics in Stewart's Calculus textbook "early transcendentals 9E", for example Clairaut's Theorem
+
 
 \appendix
 \section{Metaphores}
@@ -587,16 +602,4 @@ Checking values match i 3 s1 2.3671877383930476e-30 s2 -2.1316282072803006e-14
 OK!
 \end{verbatim} 
 }
-
-\section{Sources used for this project}
-For the explanation of Gradient descent and Newton's method we took inspiration from Coursera, Mathematics for Machine Learning specialization (DeepLearning.AI).
-Although the details and computations provided here deviate further from this course.\\
-
-The book Numerical Optimization by Nocedal/Wright provides a deep explanation of why the eigenvalues of the Hessian matrix have
-a relationship with the curve of the function that we aim to minimize.
-
-For a description of PCA and the possibility of SVD, we used Practical Linear Algebra for Data Science by Mike X Cohen.
-
-We checked a few basics in Stewart's Calculus textbook "early transcendentals 9E", for example Clairaut's Theorem
-
 \end{document}  
