@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  13 NOV 2025 15:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.10.11)  14 NOV 2025 19:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,9 +551,16 @@ L3 programming layer <2024-01-04>
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `project-EvertJan-Karman--John-Stegink.out' h
-as not changed.
-(rerunfilecheck)             Checksum: 95E7448BB96AD1EF96B9EF3A9802D21B;5419.
+
+Package rerunfilecheck Warning: File `project-EvertJan-Karman--John-Stegink.out
+' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `project-EvertJan-Karman--John-Stegi
+nk.out':
+(rerunfilecheck)             Before: FE75CD7608C8C4796284CD9D05635DD7;5448
+(rerunfilecheck)             After:  95E7448BB96AD1EF96B9EF3A9802D21B;5419.
  ) 
 Here is how much of TeX's memory you used:
  10334 strings out of 474486
