@@ -274,7 +274,7 @@ The explanation that follows now will align with the diagram in fig \ref{PCADiag
     \label{PCADiagram}
 \end{figure}
 
-We start with an mxn matrix A, feature by observation, so there are m observations and n features.
+We start with an $m \times n$ matrix A, feature by observation, so there are $m$ observations and $n$ features.
 We will mean-center it and call it $A_{mean-centered}$ or $Amc$.
 
 In the most common definition we will now create the covariance matrix, which is
@@ -343,37 +343,71 @@ When a dataset is ill-conditioned, SVD is numerically more stable. In the lower 
 the differences between these two methods become relatively larger.
 Also this could be reproduced in the same python program.
 
-\subsection{Connection between EVD and SVD}
-\label{EvdSvdConnection}
-This paragraph is describing some of the connections between Eigen Value Decomposition (EVD) and Singualar Value Decomposition (SVD). The theory of these are part of the course and will not be introduced.\\
-For understanding the below please be reminded of three things:
+
+
+\subsection{Connection between EVD and SVD}\label{EvdSvdConnection}
+
+This section describes an important connection between the Eigenvalue Decomposition (EVD) and the Singular Value Decomposition (SVD). The theoretical foundations of these decompositions are part of the course and will not be introduced here.
+
+To understand the relations below, recall the following facts:
 \begin{enumerate}
-  \item For any matrices A, B, $ A^T B^T = (BA)^T $.
-  \item The $U$ and $V^T$ resulting from SVD are orthogonal matrices.
-  \item Any matrix A is orthogonal if $ A^T A = A A^T = \mathbb{I} $.
+    \item For any matrices $A$ and $B$: 
+    \[
+        A^T B^T = (BA)^T.
+    \]
+    \item The matrices $U$ and $V$ obtained from the SVD are orthogonal.
+    \item A matrix $A$ is orthogonal if $A^T A = A A^T = I$.
 \end{enumerate}
 
-EVD rewrites a matrix $A$ into separate components using the formula $A = Q \Lambda Q^{-1}$. Where $\Lambda$ is a diagonal matrix with the eigen values and Q contains the eigen vectors.\\
-SVD is used for dimensionality reduction of matrices. By using the formula $A = U\Sigma V^T$ where $\Sigma$ contains the eigen values squared and is sorted from the highest value to the smallest. To calculate $U$ one uses:
+The eigenvalue decomposition expresses a matrix $A$ as
 \[
-AA^T = \left( U \Sigma V^T \right) \left( U \Sigma V^T \right)^T = U \Sigma V^T V \Sigma^T U^T = U \Sigma^2 U^T\]
-A similar computation is for matrix $V$:
-\[
-A^T A = \left( U \Sigma V^T \right)^T \left( U \Sigma V^T \right) = V \Sigma^T U^T U \Sigma V^T = V \Sigma^2 V^T\]
-Because $A.A^T$ is symmetrical the eigen decomposition becomes: $ A.A^T = Q \Lambda Q^T$ when substituting $\Lambda$ for $\Sigma^2$ and because $\Sigma$. When calculating values voor $\Sigma$ one has to take te square root of the values of $\Lambda$. This can easily be done because $\Lambda$ is a diagonal matrix.\\
-If a matrix $S$ is square, symmetric, and positive semi-definite, meaning $S.S^T = S^T .S$ then both $U$ and $V$ from SVD are the same (see previous two equations). The SVD can then be written as 
-
-\[
-S.S^T = U \Sigma^2 U^T
- \text{ or } S^TS = V \Sigma^2 V^T 
- \]
-this is the same. And because U is orthogonal (definition of SVD), the transpose is equal to the inverse. Meaning we have the following formula:
-\[
-S = U {\Sigma'} U^{-1}
+A = Q\Lambda Q^{-1},
 \]
-This is the eigen value decomposition, where $\Sigma'$ = $\Sigma^2$.
+where $\Lambda$ is a diagonal matrix containing the eigenvalues and $Q$ contains the corresponding eigenvectors.
 
+The singular value decomposition (SVD) factors a matrix into
+\[
+A = U \Sigma V^T,
+\]
+where $\Sigma$ contains the \emph{singular values}, which are the square roots of the eigenvalues of both $A A^T$ and $A^T A$.
 
+To compute $U$, note that
+\[
+A A^T 
+= (U\Sigma V^T){(U\Sigma V^T)}^T
+= U \Sigma^2 U^T.
+\]
+Similarly,
+\[
+A^T A
+= {(U\Sigma V^T)}^T (U\Sigma V^T) 
+= V \Sigma^2 V^T.
+\]
+
+Both $A A^T$ and $A^T A$ are symmetric positive semi-definite, and their eigenvalue decompositions are therefore
+\[
+A A^T = U \Lambda U^T, 
+\qquad
+A^T A = V \Lambda V^T,
+\]
+with $\Lambda = \Sigma^2$.  
+Thus, the eigenvalues of $A A^T$ and $A^T A$ are exactly the squared singular values of $A$.  
+The singular values themselves are obtained by taking the square roots of the diagonal entries of $\Lambda$.
+
+For some matrices the EVD en SVD are the same. Considering a matrix $S$  that is square, symmetric, and positive semi-definite ($S= S^T$). For this matrix its SVD and EVD coincide. In this case:
+\[
+S = U \Sigma U^T
+\]
+Consider the following in this formula:
+\begin{itemize}
+    \item $U = V$,
+    \item the singular values of $S$ are equal to its eigenvalues ,    \item $U$ is orthogonal, so $U^{-1} = U^T$.
+\end{itemize}
+
+Thus, the eigenvalue decomposition of $S$ can be written as
+\[
+S = U \Lambda U^{T}\]
+This means the EVD and SVD are equal in this case.
 \section{Numerical Examples}
 
 \subsection{Gradient descent versus Newton's method}
@@ -469,9 +503,10 @@ Still for me it was very hard to timebox and I probably spent much more time on 
 Also the practical aspects of how to do the project added to this.
 
 \subsection{John}
-I found it difficult to get started, especially finding a subject and finding out what was necessary to research and describe. During the research I found that I didn't understand in detail what was taught during the course, creating this report helped me get a better understanding. It took a lot of time (much more than the 20 hours) to do the research and the writing. Luckily, Evert Jan has developed the Python scripts for validation. \\
+I found it difficult to get started, especially finding a subject and finding out what was necessary to research and describe. During the research I found that I didn't understand in detail what was taught during the course, creating this report helped me get a better understanding. It took a lot of time (much more than the 20 hours) to do the research and the writing. Luckily for me, Evert Jan has developed the Python scripts for validation. \\
 Writing a report I think is better as and end to a course than an exam. When you have an exam you have learn the theory. While writing a report makes you think deeper about the theory. You also learn how to apply the theory and the practical applications.\\
-Working together with Evert Jan was very pleasant. We do things in a different way. this maked the final result better.
+Working together with Evert Jan was very pleasant. We do things in a different way. this made the final result better.\\
+I didn't learn much new mathematics (except for the Newton Method), but applying the mathematics gave me new insights. Studying mathematical topics in the future would be a combination of reading a book and then use the internet for articles and video's. For me it is important to get an intuition before diving into the theory.
 
 \section{References}
 For the explanation of Gradient descent and Newton's method we took inspiration from Coursera, Mathematics for Machine Learning specialization (DeepLearning.AI).
